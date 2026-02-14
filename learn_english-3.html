@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Learn English for Chinese Speakers</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--grn:#58CC02;--grn-dk:#46a302;--grn-lt:#d7ffb8;--blu:#1CB0F6;--blu-dk:#1899d6;--blu-lt:#e8f4fd;--red:#FF4B4B;--red-lt:#ffdfe0;--org:#FF9600;--gld:#FFC800;--pur:#CE82FF;--navy:#1a3a5c;--teal:#00B4D8;--g100:#F2F2F2;--g200:#E5E5E5;--g300:#AFAFAF;--g500:#777;--g700:#3C3C3C;--w:#FFF}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--g100);min-height:100vh;color:var(--g700);overflow-x:hidden}
+.hide{display:none!important}
+.splash{position:fixed;inset:0;background:linear-gradient(145deg,#1a3a5c,#0d4f8b 50%,#00B4D8);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--w);text-align:center;padding:32px}
+.sp-flag{font-size:64px;margin-bottom:4px;animation:bob 2s ease-in-out infinite}
+.sp-t{font-family:'Baloo 2',cursive;font-size:24px;margin-bottom:4px}
+.sp-s{font-size:13px;opacity:.85;margin-bottom:24px;line-height:1.6}
+.sp-btn{background:var(--grn);color:var(--w);border:none;border-bottom:4px solid var(--grn-dk);border-radius:16px;padding:15px 44px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer}
+.sp-btn:active{border-bottom-width:1px;margin-top:3px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.topbar{display:flex;align-items:center;padding:10px 14px;background:var(--w);border-bottom:2px solid var(--g200);position:sticky;top:0;z-index:100}
+.tb-back{font-size:20px;color:var(--g300);background:none;border:none;cursor:pointer;padding:4px 8px}
+.tb-title{flex:1;text-align:center;font-weight:800;font-size:13px;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prog-w{flex:1;height:13px;background:var(--g200);border-radius:10px;margin:0 8px;overflow:hidden}
+.prog-f{height:100%;background:var(--grn);border-radius:10px;transition:width .5s;width:0}
+.hearts{display:flex;align-items:center;gap:3px;font-size:15px}
+.hearts span{font-size:13px;color:var(--red);font-weight:800}
+/* HOME */
+.home{max-width:480px;margin:0 auto;padding:16px 16px 40px}
+.hm-hi{font-family:'Baloo 2',cursive;font-size:20px;color:var(--navy);text-align:center;margin-bottom:4px}
+.hm-sub{font-size:12px;color:var(--g500);text-align:center;margin-bottom:16px}
+.xp-bar{background:linear-gradient(135deg,var(--org),var(--gld));border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:18px;color:var(--w)}
+.xp-fire{font-size:28px}.xp-n{font-size:20px;font-weight:900}.xp-l{font-size:10px;opacity:.9}
+.xp-v{margin-left:auto;font-size:11px;font-weight:700;background:rgba(255,255,255,.25);padding:3px 10px;border-radius:10px}
+.wk-t{font-family:'Baloo 2',cursive;font-size:15px;color:var(--navy);margin:16px 0 8px 2px}
+.lc{display:flex;flex-direction:column;gap:6px}
+.lcard{display:flex;align-items:center;gap:12px;background:var(--w);border:2px solid var(--g200);border-bottom:3px solid var(--g200);border-radius:14px;padding:12px 14px;cursor:pointer;transition:all .1s}
+.lcard:active{transform:scale(.97);border-bottom-width:1px;margin-top:2px}
+.ln{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--w);flex-shrink:0}
+.li{flex:1}.li-t{font-weight:800;font-size:14px}.li-d{font-size:11px;color:var(--g500);margin-top:1px}
+.larr{color:var(--g300);font-size:14px}
+/* MODE PICKER */
+.mpick{max-width:480px;margin:0 auto;padding:20px 16px}
+.mp-t{font-family:'Baloo 2',cursive;font-size:20px;color:var(--navy);text-align:center;margin-bottom:4px}
+.mp-s{font-size:12px;color:var(--g500);text-align:center;margin-bottom:16px}
+.modes{display:flex;flex-direction:column;gap:8px}
+.mcard{display:flex;align-items:center;gap:14px;background:var(--w);border:2px solid var(--g200);border-bottom:4px solid var(--g200);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .1s}
+.mcard:active{transform:scale(.97);border-bottom-width:2px;margin-top:2px}
+.mic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.mi1{background:#e0f2ff}.mi2{background:#fff3e0}.mi3{background:#e8f5e9}.mi4{background:#f3e5f5}
+.mc-t{font-weight:800;font-size:14px}.mc-d{font-size:11px;color:var(--g500);margin-top:1px}
+/* QUIZ */
+.qz{max-width:540px;margin:0 auto;padding:16px 16px 156px;display:none;flex-direction:column;align-items:center}
+.qz.act{display:flex}
+.ql{font-size:17px;font-weight:800;margin-bottom:14px;text-align:center;line-height:1.4}
+.ac{width:100%;background:var(--w);border:2px solid var(--g200);border-radius:14px;padding:14px;margin-bottom:8px}
+.ac-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ac-owl{width:38px;height:38px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ac-st{font-size:12px;color:var(--g300);font-weight:600}
+.sb{font-size:17px;font-weight:700;color:var(--navy);line-height:1.7;min-height:44px}
+.ws{display:inline-block;opacity:0;transform:translateY(5px);transition:all .28s;margin-right:4px}
+.ws.v{opacity:1;transform:translateY(0)}.ws.hl{color:var(--blu);background:var(--blu-lt);border-radius:4px;padding:0 3px}
+.pr{display:flex;gap:6px;margin-bottom:12px;width:100%}
+.pb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--w);border:2px solid var(--g200);border-bottom:3px solid var(--g200);border-radius:10px;padding:8px 4px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--g500)}
+.pb:active{transform:scale(.96)}.pb .pi{font-size:18px}.pb.on{border-color:var(--blu);background:var(--blu-lt);color:var(--blu)}
+.hint-box{width:100%;background:#fffde7;border:2px solid #fff9c4;border-radius:11px;padding:9px 12px;margin-bottom:12px;font-size:12px;color:#8d6e00;line-height:1.5}
+.hint-box em{font-weight:700;font-style:normal}
+.opts{display:flex;flex-direction:column;gap:7px;width:100%}
+.op{display:flex;align-items:center;gap:11px;background:var(--w);border:2px solid var(--g200);border-bottom:4px solid var(--g200);border-radius:13px;padding:11px 14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;text-align:left;transition:all .1s}
+.op:active{transform:scale(.97);border-bottom-width:2px;margin-top:2px}
+.on-n{width:24px;height:24px;border:2px solid var(--g200);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--g300);flex-shrink:0}
+.op.sel{border-color:var(--blu);background:var(--blu-lt);border-bottom-color:var(--blu)}.op.sel .on-n{border-color:var(--blu);color:var(--blu)}
+.op.ok{border-color:var(--grn);background:var(--grn-lt);border-bottom-color:var(--grn-dk)}.op.ok .on-n{border-color:var(--grn-dk);color:var(--grn-dk)}
+.op.bad{border-color:var(--red);background:var(--red-lt);border-bottom-color:var(--red)}.op.bad .on-n{border-color:var(--red);color:var(--red)}
+.fill-sent{font-size:16px;font-weight:600;line-height:1.8;text-align:center;margin-bottom:16px}
+.blank{display:inline-block;border-bottom:3px solid var(--blu);min-width:70px;padding:2px 6px;color:var(--blu);font-weight:800;transition:all .3s}
+.blank.filled{background:var(--blu-lt);border-radius:6px}
+.blank.ok-b{border-color:var(--grn);color:var(--grn-dk);background:var(--grn-lt)}.blank.bad-b{border-color:var(--red);color:var(--red);background:var(--red-lt)}
+.wbank{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:8px}
+.wb{background:var(--w);border:2px solid var(--g200);border-bottom:3px solid var(--g200);border-radius:10px;padding:7px 14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700}
+.wb:active{transform:scale(.95)}.wb.sel-w{border-color:var(--blu);background:var(--blu-lt);color:var(--blu)}
+.fc{width:100%;min-height:190px;background:var(--w);border:2px solid var(--g200);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;cursor:pointer;position:relative;margin-bottom:10px}
+.fc:active{transform:scale(.98)}.fc-emoji{font-size:42px;margin-bottom:8px}.fc-word{font-family:'Baloo 2',cursive;font-size:26px;color:var(--navy);margin-bottom:2px}
+.fc-pron{font-size:13px;color:var(--g500);font-style:italic;margin-bottom:6px}
+.fc-ctx{font-size:12px;color:var(--g500);margin-bottom:10px;line-height:1.5;font-weight:600;text-align:center}
+.fc-mean{font-size:17px;color:var(--blu);font-weight:700;opacity:0;transition:opacity .3s}.fc-mean.show{opacity:1}
+.fc-tap{font-size:11px;color:var(--g300);position:absolute;bottom:12px}
+.fc-nav{display:flex;gap:10px;width:100%}
+.fc-btn{flex:1;padding:11px;border-radius:11px;border:none;border-bottom:3px solid;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-transform:uppercase}
+.fc-btn:active{border-bottom-width:1px;margin-top:2px}
+.fc-hard{background:var(--red-lt);color:var(--red);border-bottom-color:var(--red)}.fc-easy{background:var(--grn-lt);color:var(--grn-dk);border-bottom-color:var(--grn-dk)}
+.fc-dots{display:flex;gap:5px;justify-content:center;margin-top:10px}.fc-dot{width:7px;height:7px;border-radius:50%;background:var(--g200)}.fc-dot.cur{background:var(--blu)}.fc-dot.done{background:var(--grn)}
+.chat-area{width:100%;margin-bottom:12px}
+.chat-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-end}.chat-row.them{flex-direction:row}.chat-row.you{flex-direction:row-reverse}
+.chat-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.chat-av.a1{background:var(--navy);color:var(--w)}.chat-av.a2{background:var(--teal);color:var(--w)}
+.chat-bub{max-width:75%;padding:9px 12px;border-radius:14px;font-size:13px;font-weight:600;line-height:1.5}
+.them .chat-bub{background:var(--w);border:2px solid var(--g200);border-bottom-left-radius:4px}
+.you .chat-bub{background:var(--blu);color:var(--w);border-bottom-right-radius:4px}
+.chat-tr{font-size:10px;color:var(--g300);margin-top:2px;font-style:italic}
+.btm{position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom,8px));background:var(--w);border-top:2px solid var(--g200);z-index:100}
+.btm.c-ok{background:var(--grn-lt);border-top-color:var(--grn)}.btm.c-bad{background:var(--red-lt);border-top-color:var(--red)}
+.fb{display:none;align-items:center;gap:8px;margin-bottom:6px}.fb.vis{display:flex}
+.fbi{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--w);flex-shrink:0}
+.fbi.ok{background:var(--grn)}.fbi.bad{background:var(--red)}
+.fbm{font-weight:800;font-size:14px}.fbm.ok{color:var(--grn-dk)}.fbm.bad{color:var(--red)}
+.fba{font-size:11px;font-weight:600;color:var(--red)}
+.btn{width:100%;padding:12px;border-radius:13px;border:none;border-bottom:4px solid;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer}
+.btn:active{border-bottom-width:1px;margin-top:3px}
+.btn.off{background:var(--g200);color:var(--g300);border-bottom-color:#ccc;pointer-events:none}
+.btn.go{background:var(--grn);color:var(--w);border-bottom-color:var(--grn-dk)}
+.btn.n-ok{background:var(--grn);color:var(--w);border-bottom-color:var(--grn-dk)}
+.btn.n-bad{background:var(--red);color:var(--w);border-bottom-color:#cc3b3b}
+.res{max-width:480px;margin:0 auto;padding:30px 16px 40px;display:none;flex-direction:column;align-items:center;text-align:center}
+.res.act{display:flex}
+.res-trophy{font-size:60px;margin-bottom:8px}.res-t{font-family:'Baloo 2',cursive;font-size:22px;color:var(--gld);margin-bottom:4px}
+.res-s{font-size:13px;color:var(--g500);font-weight:600;margin-bottom:20px}
+.res-stats{display:flex;gap:16px;margin-bottom:20px}.rs{text-align:center}.rs-v{font-size:24px;font-weight:900;color:var(--navy)}.rs-v.gld{color:var(--gld)}.rs-l{font-size:10px;color:var(--g300);font-weight:700;text-transform:uppercase}
+.rr{width:100%;text-align:left;margin-bottom:14px}.rr-t{font-weight:800;font-size:14px;margin-bottom:6px}
+.rr-box{background:var(--w);border:2px solid var(--g200);border-radius:12px;padding:14px;font-size:13px;line-height:1.8;margin-bottom:6px;white-space:pre-line}
+.rr-box.en{background:var(--blu-lt);border-color:#d0ecfc;color:var(--g500);font-style:italic}
+.rr-vocab{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:12px;background:var(--w);border:2px solid var(--g200);border-radius:12px;padding:12px}
+.rv-i{font-weight:700;color:var(--navy)}.rv-e{color:var(--g500)}
+.rbtn{background:var(--blu);color:var(--w);border:none;border-bottom:4px solid var(--blu-dk);border-radius:13px;padding:12px 36px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer;margin-bottom:8px}
+.rbtn:active{border-bottom-width:1px;margin-top:3px}
+.rbtn2{background:none;border:2px solid var(--g200);color:var(--g500);border-radius:13px;padding:10px 36px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pop{animation:pop .3s}.fadein{animation:fadeUp .35s ease}
+</style>
+</head>
+<body>
+<div class="splash" id="splash"><div class="sp-flag">🇬🇧 🦉</div><div class="sp-t">学英语 Learn English</div><div class="sp-s">第一批：第1-5课 · 中级水平<br>问候、学校、家庭、餐厅、购物<br><br>每课：🔊 听力 · 📖 单词卡 · ✏️ 填空 · 💬 对话</div><button class="sp-btn" id="startBtn">开始 ▶</button></div>
+<div class="topbar hide" id="topbar"><button class="tb-back" id="backBtn">&#8592;</button><div class="tb-title" id="tbTitle">首页</div><div class="prog-w hide" id="progW"><div class="prog-f" id="prog"></div></div><div class="hearts hide" id="heartsEl">&#10084;&#65039;<span id="hc">3</span></div></div>
+<div class="home hide" id="homeScreen"></div>
+<div class="mpick hide" id="modeScreen"></div>
+<div class="qz" id="qzScreen"></div>
+<div class="res" id="resScreen"></div>
+<div class="btm hide" id="btm"><div class="fb" id="fbRow"><div class="fbi" id="fbIcon"></div><div><div class="fbm" id="fbMsg"></div><div class="fba" id="fbAns"></div></div></div><button class="btn off" id="cbtn" onclick="checkAns()">检查</button></div>
+<script>
+var L = [{"t": "问候与介绍 Greetings", "d": "Greetings, introductions & polite phrases", "c": "var(--grn)", "listen": {"p": {"id": "My name is Amy Chen and I am a seventh-grade student at Lincoln Middle School. Every morning when I arrive at school, I greet my homeroom teacher by saying 'Good morning, Ms. Johnson. How are you today?' She usually replies 'I am doing well, thank you for asking.' My best friend Rachel always waves and says 'Hey Amy, what is up?' I tell her 'Not much, just a bit tired from staying up late.' During lunch, we often run into other classmates. I always make sure to say 'Excuse me' when I need to get past someone in the hallway.", "zh": "我叫Amy Chen，是林肯中学七年级的学生。每天早上到学校时，我会对班主任说'早上好，Johnson老师。您今天好吗？'她通常回答'我很好，谢谢你的关心。'我最好的朋友Rachel总是挥手说'嗨Amy，最近怎么样？'我告诉她'没什么，就是熬夜有点累。'午餐时我们经常碰到其他同学。在走廊里需要过去的时候，我总会说'打扰一下'。"}, "v": [["homeroom teacher", "班主任"], ["How are you doing?", "你最近怎么样？"], ["Not much", "没什么"], ["staying up late", "熬夜"], ["run into", "碰到"], ["Excuse me", "打扰一下/借过"]], "qs": [{"a": "My name is Amy Chen and I am a seventh-grade student at Lincoln Middle School.", "q": "Amy在哪里上学？", "o": ["小学", "高中", "林肯中学", "大学"], "x": 2}, {"a": "Hey Amy, what is up? Not much, just a bit tired from staying up late.", "q": "Amy为什么累？", "o": ["运动太多", "熬夜了", "生病了", "作业太多"], "x": 1}, {"a": "I always make sure to say Excuse me when I need to get past someone.", "q": "在走廊里要过去时说什么？", "o": ["Sorry", "Thank you", "Excuse me", "Hello"], "x": 2}]}, "flash": [{"w": "How are you doing?", "e": "你最近怎么样？", "m": "👋", "p": "hau ar yoo DOO-ing", "c": "Hey! How are you doing today?"}, {"w": "What is up?", "e": "最近怎样？（口语）", "m": "💬", "p": "wut iz up", "c": "Hey man, what is up?"}, {"w": "I am doing well", "e": "我很好", "m": "😊", "p": "aim DOO-ing wel", "c": "I am doing well, thanks for asking."}, {"w": "Nice to meet you", "e": "很高兴认识你", "m": "🤝", "p": "nais too meet yoo", "c": "Hi, I am Amy. Nice to meet you!"}, {"w": "See you later", "e": "回头见", "m": "👋", "p": "see yoo LAY-ter", "c": "Bye! See you later!"}, {"w": "Take care", "e": "保重", "m": "🫶", "p": "tayk kair", "c": "Take care! See you tomorrow."}, {"w": "No worries", "e": "没关系/不用担心", "m": "🤗", "p": "noh WUH-reez", "c": "No worries, it happens to everyone."}, {"w": "I appreciate it", "e": "我很感激", "m": "🙏", "p": "ai uh-PREE-shee-ayt it", "c": "Thanks so much, I really appreciate it."}], "fill": [{"s": "Hey Rachel, ___ is up?", "b": "what", "o": ["what", "how", "who", "where"], "x": 0, "h": "口语问候，问最近怎样", "en": "嗨Rachel，最近怎样？"}, {"s": "I am doing ___, thanks for asking.", "b": "well", "o": ["good", "well", "nice", "fine"], "x": 1, "h": "注意：doing后面用well（副词）", "en": "我很好，谢谢关心。"}, {"s": "No ___, it happens to everyone.", "b": "worries", "o": ["problem", "worries", "thanks", "way"], "x": 1, "h": "没关系（比较随意的说法）", "en": "没关系，每个人都会这样。"}], "convo": {"p": {"id": "First day at a new school.\n\nAmy: Excuse me, is this the right classroom for English?\nRachel: Yeah, you are in the right place! Are you new here?\nAmy: Yes, I just transferred from Shanghai.\nRachel: Oh cool! Welcome! I am Rachel, by the way.\nAmy: Nice to meet you, Rachel. I am Amy.\nRachel: So how are you finding everything so far?\nAmy: A bit overwhelming, to be honest. This school is huge!\nRachel: Haha, you will get used to it. Want me to show you around after class?\nAmy: That would be awesome, thanks! I really appreciate it.\nRachel: No worries at all! That is what friends are for.", "zh": "新学校的第一天。\n\nAmy：打扰一下，这是英语课的教室吗？\nRachel：是的，你来对地方了！你是新来的吗？\nAmy：是的，我刚从上海转来。\nRachel：哦酷！欢迎！我叫Rachel。\nAmy：很高兴认识你Rachel。我叫Amy。\nRachel：到目前为止感觉怎么样？\nAmy：说实话有点不知所措。学校好大！\nRachel：哈哈，你会习惯的。下课后要我带你逛逛吗？\nAmy：太好了，谢谢！真的很感激。\nRachel：完全不用客气！朋友就是这样的。"}, "v": [["transferred", "转学"], ["by the way", "顺便说一下"], ["how are you finding...", "你觉得...怎么样"], ["overwhelming", "不知所措的"], ["get used to", "习惯"], ["show you around", "带你逛逛"], ["That is what friends are for", "朋友就是这样的"]], "qs": [{"a": "I just transferred from Shanghai.", "q": "transferred是什么意思？", "o": ["毕业", "转学", "旅游", "搬家"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "Yes, I just transferred from Shanghai.", "tr": "是的，我刚从上海转来。"}]}, {"a": "A bit overwhelming, to be honest.", "q": "overwhelming是什么意思？", "o": ["很无聊", "不知所措", "很开心", "很简单"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "A bit overwhelming, to be honest.", "tr": "说实话有点不知所措。"}]}, {"a": "No worries at all! That is what friends are for.", "q": "That is what friends are for是什么意思？", "o": ["朋友太多了", "朋友不重要", "朋友就是这样的", "我不需要朋友"], "x": 2, "ch": [{"w": "them", "av": "a1", "n": "Rachel", "t": "No worries at all! That is what friends are for.", "tr": "完全不用客气！朋友就是这样的。"}]}]}}, {"t": "校园生活 School Life", "d": "Classes, homework & school activities", "c": "var(--blu)", "listen": {"p": {"id": "Amy has a packed schedule this semester. On Mondays and Wednesdays, she has math, science, and English. On Tuesdays and Thursdays, she has history, art, and PE. Her favorite subject is science because the teacher, Mr. Park, always does interesting experiments. Last week, they dissected a frog, which was both gross and fascinating. Amy usually does her homework right after school at the library. She finds it easier to concentrate there because her little brother is always making noise at home. She is also on the school debate team, which practices every Friday afternoon.", "zh": "Amy这学期的课程表排得很满。周一和周三有数学、科学和英语课。周二和周四有历史、美术和体育课。她最喜欢的科目是科学，因为Park老师总是做有趣的实验。上周他们解剖了一只青蛙，既恶心又有趣。Amy通常放学后在图书馆做作业。她觉得在那里更容易集中注意力，因为她弟弟在家总是很吵。她还参加了学校的辩论队，每周五下午训练。"}, "v": [["packed schedule", "排得很满的课表"], ["semester", "学期"], ["dissected", "解剖"], ["fascinating", "很有趣/着迷的"], ["concentrate", "集中注意力"], ["debate team", "辩论队"]], "qs": [{"a": "Her favorite subject is science because the teacher always does interesting experiments.", "q": "Amy最喜欢什么科目？", "o": ["数学", "英语", "科学", "历史"], "x": 2}, {"a": "She finds it easier to concentrate there because her little brother is always making noise at home.", "q": "为什么Amy在图书馆做作业？", "o": ["离学校近", "家里弟弟太吵", "没有电脑", "朋友在那"], "x": 1}, {"a": "She is also on the school debate team, which practices every Friday afternoon.", "q": "辩论队什么时候训练？", "o": ["周一早上", "周三中午", "周五下午", "每天晚上"], "x": 2}]}, "flash": [{"w": "assignment", "e": "作业/任务", "m": "📝", "p": "uh-SAIN-ment", "c": "The assignment is due next Monday."}, {"w": "semester", "e": "学期", "m": "📅", "p": "seh-MES-ter", "c": "This semester I am taking six classes."}, {"w": "concentrate", "e": "集中注意力", "m": "🧠", "p": "KON-sen-trayt", "c": "I cannot concentrate with all this noise."}, {"w": "participate", "e": "参加/参与", "m": "🙋", "p": "par-TIS-uh-payt", "c": "Everyone should participate in class discussion."}, {"w": "schedule", "e": "课程表/日程", "m": "📋", "p": "SKEJ-ool", "c": "My schedule is really packed this week."}, {"w": "deadline", "e": "截止日期", "m": "⏰", "p": "DED-lain", "c": "The deadline for the essay is Friday."}, {"w": "elective", "e": "选修课", "m": "🎨", "p": "eh-LEK-tiv", "c": "I chose photography as my elective."}, {"w": "extracurricular", "e": "课外活动", "m": "⚽", "p": "EK-struh-kuh-RIK-yoo-ler", "c": "She does many extracurricular activities."}], "fill": [{"s": "The ___ for the project is next Friday.", "b": "deadline", "o": ["schedule", "deadline", "semester", "elective"], "x": 1, "h": "截止日期 ⏰", "en": "项目的截止日期是下周五。"}, {"s": "I cannot ___ with all this noise around me.", "b": "concentrate", "o": ["participate", "concentrate", "graduate", "celebrate"], "x": 1, "h": "集中注意力 🧠", "en": "周围这么吵我没法集中注意力。"}, {"s": "She chose drama as her ___ this year.", "b": "elective", "o": ["homework", "elective", "schedule", "assignment"], "x": 1, "h": "自己选的课 🎨", "en": "她今年选了戏剧作为选修课。"}], "convo": {"p": {"id": "After school at the library.\n\nAmy: Ugh, I have so much homework tonight.\nRachel: Same here. Did you start the history essay yet?\nAmy: Not yet. I have been putting it off all week.\nRachel: You should probably get on that. It is due tomorrow.\nAmy: I know, I know. I work better under pressure anyway.\nRachel: Haha, that is such a bad habit. Want to work on it together?\nAmy: Sure, that would help. Can you explain the part about the Industrial Revolution?\nRachel: Yeah, no problem. I actually found it pretty interesting.\nAmy: You are a lifesaver! I owe you one.", "zh": "放学后在图书馆。\n\nAmy：唉，今晚作业好多。\nRachel：我也是。你开始写历史论文了吗？\nAmy：还没。我拖了一整周了。\nRachel：你大概应该开始了。明天就要交了。\nAmy：我知道我知道。反正我在压力下效率更高。\nRachel：哈哈，这习惯真不好。要一起写吗？\nAmy：好啊，那会有帮助。你能给我讲讲工业革命那部分吗？\nRachel：可以，没问题。我觉得那部分其实挺有意思的。\nAmy：你是救星！我欠你一个人情。"}, "v": [["putting it off", "拖延"], ["get on that", "开始做那件事"], ["due", "到期/该交"], ["under pressure", "在压力下"], ["lifesaver", "救星"], ["I owe you one", "我欠你一个人情"]], "qs": [{"a": "I have been putting it off all week.", "q": "putting it off是什么意思？", "o": ["提前完成", "一直拖延", "已经交了", "觉得太简单"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "Not yet. I have been putting it off all week.", "tr": "还没。我拖了一整周了。"}]}, {"a": "I work better under pressure anyway.", "q": "under pressure是什么意思？", "o": ["很放松", "在压力下", "没有作业", "很开心"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "I work better under pressure anyway.", "tr": "反正我在压力下效率更高。"}]}, {"a": "You are a lifesaver! I owe you one.", "q": "I owe you one是什么意思？", "o": ["我给你钱", "我欠你人情", "我不需要帮助", "我们扯平了"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "You are a lifesaver! I owe you one.", "tr": "你是救星！我欠你一个人情。"}]}]}}, {"t": "家庭与生活 Family", "d": "Family relationships & daily routines", "c": "var(--teal)", "listen": {"p": {"id": "Amy lives with her parents and younger brother Kevin in a two-story house in the suburbs. Her dad is a software engineer who works from home three days a week. Her mom runs a small bakery downtown. Kevin is in fifth grade and is obsessed with dinosaurs. Every Sunday, the whole family has brunch together. Amy's grandparents live about two hours away, so they usually visit once a month. Amy is especially close to her grandmother, who taught her how to make dumplings from scratch. Family gatherings during Chinese New Year are always the highlight of her year.", "zh": "Amy和父母以及弟弟Kevin住在郊区的一栋两层小楼里。她爸爸是一名软件工程师，每周有三天在家办公。她妈妈在市中心经营一家小面包店。Kevin上五年级，痴迷于恐龙。每个周日全家一起吃早午餐。Amy的祖父母住在大约两小时车程之外，所以他们通常每月去看望一次。Amy跟奶奶关系特别好，奶奶教她从零开始做饺子。春节的家庭聚会总是她一年中最期待的事。"}, "v": [["suburbs", "郊区"], ["works from home", "在家办公"], ["obsessed with", "痴迷于"], ["brunch", "早午餐"], ["from scratch", "从零开始"], ["family gathering", "家庭聚会"], ["highlight", "最精彩的部分"]], "qs": [{"a": "Her dad is a software engineer who works from home three days a week.", "q": "爸爸每周几天在家办公？", "o": ["一天", "两天", "三天", "五天"], "x": 2}, {"a": "Her mom runs a small bakery downtown.", "q": "妈妈做什么工作？", "o": ["老师", "医生", "开面包店", "工程师"], "x": 2}, {"a": "Amy is especially close to her grandmother, who taught her how to make dumplings from scratch.", "q": "奶奶教Amy做什么？", "o": ["蛋糕", "面条", "饺子", "面包"], "x": 2}]}, "flash": [{"w": "siblings", "e": "兄弟姐妹", "m": "👫", "p": "SIB-lings", "c": "I have two siblings, a brother and a sister."}, {"w": "suburbs", "e": "郊区", "m": "🏡", "p": "SUB-urbz", "c": "We moved to the suburbs last year."}, {"w": "work from home", "e": "在家办公", "m": "💻", "p": "wurk from hohm", "c": "My dad works from home on Fridays."}, {"w": "obsessed with", "e": "痴迷于", "m": "🤩", "p": "ob-SEST with", "c": "My brother is obsessed with video games."}, {"w": "close to", "e": "关系亲近", "m": "💕", "p": "klohs too", "c": "I am really close to my grandma."}, {"w": "from scratch", "e": "从零开始", "m": "👩‍🍳", "p": "from skratch", "c": "She made the cake from scratch."}, {"w": "gathering", "e": "聚会", "m": "👨‍👩‍👧‍👦", "p": "GA-ther-ing", "c": "We have a family gathering every holiday."}, {"w": "get along with", "e": "和...相处融洽", "m": "🤝", "p": "get uh-LONG with", "c": "I get along well with my cousins."}], "fill": [{"s": "My brother is ___ with building Lego sets.", "b": "obsessed", "o": ["bored", "obsessed", "tired", "angry"], "x": 1, "h": "非常痴迷 🤩", "en": "我弟弟痴迷于搭乐高。"}, {"s": "She baked the entire cake from ___.", "b": "scratch", "o": ["store", "scratch", "nothing", "box"], "x": 1, "h": "从零开始，不用现成的", "en": "她从零开始烤了整个蛋糕。"}, {"s": "Do you ___ along with your siblings?", "b": "get", "o": ["go", "get", "take", "run"], "x": 1, "h": "和...相处融洽", "en": "你和兄弟姐妹相处得好吗？"}], "convo": {"p": {"id": "Amy and Rachel chatting during lunch.\n\nRachel: So what does your family usually do on weekends?\nAmy: We always have brunch together on Sundays. It is kind of our tradition.\nRachel: That is sweet! Who cooks?\nAmy: Usually my dad. He makes amazing pancakes.\nRachel: Lucky! My parents are always too busy.\nAmy: Yeah, we are pretty close-knit. Do you have any siblings?\nRachel: Just an older sister, but she is away at college. I kind of miss her.\nAmy: I bet. My brother drives me crazy sometimes, but I would miss him too.\nRachel: Haha, that is what siblings are for, right?", "zh": "Amy和Rachel午餐时聊天。\n\nRachel：你们家周末一般做什么？\nAmy：我们周日总是一起吃早午餐。算是我们的传统。\nRachel：好温馨！谁做饭？\nAmy：通常是我爸。他做的煎饼超好吃。\nRachel：真幸运！我爸妈总是太忙。\nAmy：是啊，我们家关系挺紧密的。你有兄弟姐妹吗？\nRachel：就一个姐姐，但她在外地上大学。我挺想她的。\nAmy：肯定的。我弟有时候烦死我了，但我也会想他的。\nRachel：哈哈，兄弟姐妹就是这样的嘛，对吧？"}, "v": [["tradition", "传统"], ["close-knit", "关系紧密的"], ["drives me crazy", "让我抓狂"], ["I bet", "肯定是的"], ["away at college", "在外地上大学"], ["kind of", "有点/算是"]], "qs": [{"a": "It is kind of our tradition.", "q": "tradition是什么意思？", "o": ["习惯", "传统", "任务", "规定"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "We always have brunch together on Sundays. It is kind of our tradition.", "tr": "我们周日总是一起吃早午餐。算是我们的传统。"}]}, {"a": "My brother drives me crazy sometimes.", "q": "drives me crazy是什么意思？", "o": ["开车送我", "让我抓狂", "让我开心", "帮助我"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "My brother drives me crazy sometimes, but I would miss him too.", "tr": "我弟有时候烦死我了，但我也会想他的。"}]}, {"a": "We are pretty close-knit.", "q": "close-knit是什么意思？", "o": ["住得近", "关系紧密", "很有钱", "人很多"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "Yeah, we are pretty close-knit.", "tr": "是啊，我们家关系挺紧密的。"}]}]}}, {"t": "餐厅点餐 Dining Out", "d": "Ordering, preferences & paying", "c": "var(--org)", "listen": {"p": {"id": "Last Saturday, Amy's family went out for dinner at an Italian restaurant to celebrate her mom's birthday. The waiter handed them the menus and recommended the chef's special, which was a seafood risotto. Amy's dad ordered a medium-rare steak with a side salad. Her mom went with the mushroom pasta. Amy was torn between the pizza and the burger, but eventually decided on the margherita pizza. Kevin wanted chicken tenders, as usual. For drinks, they ordered a bottle of sparkling water for the table. When the bill came, it was ninety-five dollars before tip. Her dad left a twenty percent tip because the service was excellent.", "zh": "上周六Amy一家去一家意大利餐厅吃晚饭，庆祝她妈妈的生日。服务员递过菜单，推荐了主厨特色菜——海鲜烩饭。Amy的爸爸点了一份五分熟的牛排配沙拉。妈妈选了蘑菇意面。Amy在披萨和汉堡之间纠结，最终选了玛格丽特披萨。Kevin照例要了炸鸡条。饮料方面他们点了一瓶气泡水。账单来的时候，小费前是95美元。她爸爸留了20%的小费，因为服务很棒。"}, "v": [["recommended", "推荐"], ["medium-rare", "五分熟"], ["was torn between", "纠结于...之间"], ["eventually", "最终"], ["sparkling water", "气泡水"], ["tip", "小费"], ["service", "服务"]], "qs": [{"a": "The waiter recommended the chef's special, which was a seafood risotto.", "q": "主厨特色菜是什么？", "o": ["牛排", "意面", "海鲜烩饭", "披萨"], "x": 2}, {"a": "Amy was torn between the pizza and the burger, but eventually decided on the margherita pizza.", "q": "Amy最后点了什么？", "o": ["汉堡", "牛排", "鸡条", "披萨"], "x": 3}, {"a": "Her dad left a twenty percent tip because the service was excellent.", "q": "小费是多少？", "o": ["10%", "15%", "20%", "25%"], "x": 2}]}, "flash": [{"w": "appetizer", "e": "前菜/开胃菜", "m": "🥗", "p": "AP-uh-tai-zer", "c": "Would you like to start with an appetizer?"}, {"w": "entree", "e": "主菜", "m": "🥩", "p": "ON-tray", "c": "For my entree, I will have the steak."}, {"w": "side dish", "e": "配菜", "m": "🥬", "p": "said dish", "c": "The steak comes with two side dishes."}, {"w": "beverage", "e": "饮料", "m": "🥤", "p": "BEV-rij", "c": "What beverage would you like?"}, {"w": "split the bill", "e": "AA制/分账", "m": "💳", "p": "split thuh bil", "c": "Should we split the bill?"}, {"w": "allergic to", "e": "对...过敏", "m": "⚠️", "p": "uh-LER-jik too", "c": "I am allergic to peanuts."}, {"w": "on the house", "e": "免费的（店家请客）", "m": "🎁", "p": "on thuh hous", "c": "Dessert is on the house tonight!"}, {"w": "doggy bag", "e": "打包袋", "m": "📦", "p": "DOG-ee bag", "c": "Can I get a doggy bag for the leftovers?"}], "fill": [{"s": "I am ___ to shellfish, so no shrimp for me.", "b": "allergic", "o": ["addicted", "allergic", "attracted", "attached"], "x": 1, "h": "对某食物过敏 ⚠️", "en": "我对贝类过敏，所以我不能吃虾。"}, {"s": "The dessert is ___ the house tonight. Happy birthday!", "b": "on", "o": ["in", "on", "at", "by"], "x": 1, "h": "店家免费请客 🎁", "en": "今晚甜点免费。生日快乐！"}, {"s": "There is so much food left. Can we get a ___ bag?", "b": "doggy", "o": ["paper", "doggy", "plastic", "lunch"], "x": 1, "h": "把剩菜打包带走 📦", "en": "剩了好多。能打包吗？"}], "convo": {"p": {"id": "At a restaurant.\n\nWaiter: Good evening! Table for four? Right this way.\nAmy: Thanks. Could we get a booth by the window?\nWaiter: Of course. Here are your menus. Can I get you started with any drinks?\nDad: A bottle of sparkling water for the table, please.\nWaiter: Sure. Are you ready to order, or do you need a few more minutes?\nAmy: I think we are ready. I will have the margherita pizza.\nWaiter: Great choice. Any appetizers or sides?\nAmy: Could we get the bruschetta to share?\nWaiter: Absolutely. I will put that order in right away.\nDad: Oh, and could you check if the tiramisu is gluten-free? My wife is allergic.\nWaiter: Let me check with the kitchen. I will be right back.", "zh": "在餐厅。\n\n服务员：晚上好！四位？请这边走。\nAmy：谢谢。能坐靠窗的卡座吗？\n服务员：当然可以。这是菜单。先点饮料吗？\n爸爸：一瓶气泡水，谢谢。\n服务员：好的。准备好点餐了还是需要再看看？\nAmy：我想我们准备好了。我要玛格丽特披萨。\n服务员：好选择。要前菜或配菜吗？\nAmy：能来一份意式烤面包一起分享吗？\n服务员：当然。我马上下单。\n爸爸：哦对了，能帮忙确认提拉米苏是不是无麸质的吗？我太太过敏。\n服务员：我去问下厨房。马上回来。"}, "v": [["booth", "卡座"], ["right this way", "请这边走"], ["get you started with", "先来点..."], ["Great choice", "好选择"], ["put that order in", "下单"], ["gluten-free", "无麸质的"], ["I will be right back", "我马上回来"]], "qs": [{"a": "Could we get a booth by the window?", "q": "booth是什么意思？", "o": ["吧台", "卡座", "包间", "露台"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "Could we get a booth by the window?", "tr": "能坐靠窗的卡座吗？"}]}, {"a": "I will put that order in right away.", "q": "put that order in是什么意思？", "o": ["取消订单", "马上下单", "等一下", "换一个"], "x": 1, "ch": [{"w": "them", "av": "a1", "n": "Waiter", "t": "Absolutely. I will put that order in right away.", "tr": "当然。我马上下单。"}]}, {"a": "Could you check if the tiramisu is gluten-free?", "q": "gluten-free是什么意思？", "o": ["免费的", "无糖的", "无麸质的", "素食的"], "x": 2, "ch": [{"w": "you", "av": "a2", "n": "Dad", "t": "Could you check if the tiramisu is gluten-free? My wife is allergic.", "tr": "能确认提拉米苏是不是无麸质的吗？我太太过敏。"}]}]}}, {"t": "购物砍价 Shopping", "d": "Prices, bargaining & returns", "c": "var(--pur)", "listen": {"p": {"id": "Amy and Rachel went to the outlet mall last weekend for some back-to-school shopping. Rachel needed a new pair of sneakers, and Amy was looking for a jacket. They found a nice store having a clearance sale with up to fifty percent off everything. Amy tried on a denim jacket that fit perfectly. It was originally eighty dollars but marked down to forty. Rachel found some running shoes on sale for sixty-five dollars, down from a hundred and twenty. At checkout, Amy also grabbed a buy-one-get-one-free deal on t-shirts. Their total came to one hundred and forty dollars. Rachel paid with her debit card, and Amy used cash. They were thrilled with their bargains.", "zh": "上周末Amy和Rachel去奥特莱斯购物，买开学用品。Rachel需要一双新运动鞋，Amy在找一件夹克。她们发现一家店在做清仓甩卖，全场五折。Amy试了一件牛仔夹克，完美合身。原价80美元，打折后40。Rachel找到一双跑鞋，原价120降到65。结账时Amy还抢到了T恤买一送一的优惠。总共140美元。Rachel用借记卡付款，Amy用现金。她们对买到的便宜货非常开心。"}, "v": [["outlet mall", "奥特莱斯"], ["clearance sale", "清仓甩卖"], ["marked down", "降价/打折"], ["buy-one-get-one-free", "买一送一"], ["checkout", "结账"], ["debit card", "借记卡"], ["bargains", "便宜货/划算的购买"]], "qs": [{"a": "Amy tried on a denim jacket. It was originally eighty dollars but marked down to forty.", "q": "夹克最终多少钱？", "o": ["$30", "$40", "$50", "$60"], "x": 1}, {"a": "Rachel found some running shoes on sale for sixty-five dollars, down from a hundred and twenty.", "q": "鞋子原价多少？", "o": ["$65", "$90", "$100", "$120"], "x": 3}, {"a": "Their total came to one hundred and forty dollars.", "q": "总共花了多少？", "o": ["$100", "$120", "$140", "$160"], "x": 2}]}, "flash": [{"w": "on sale", "e": "打折/促销中", "m": "🏷️", "p": "on sayl", "c": "These shoes are on sale this week."}, {"w": "try on", "e": "试穿", "m": "👗", "p": "trai on", "c": "Can I try on this jacket in a medium?"}, {"w": "fit", "e": "合身", "m": "👌", "p": "fit", "c": "This dress fits perfectly!"}, {"w": "receipt", "e": "收据/小票", "m": "🧾", "p": "reh-SEET", "c": "Keep the receipt in case you want to return it."}, {"w": "refund", "e": "退款", "m": "💰", "p": "REE-fund", "c": "I would like a refund for this item."}, {"w": "exchange", "e": "换货", "m": "🔄", "p": "eks-CHAYNJ", "c": "Can I exchange this for a larger size?"}, {"w": "window shopping", "e": "逛街不买东西", "m": "🛍️", "p": "WIN-doh SHOP-ing", "c": "I am just window shopping today."}, {"w": "rip-off", "e": "宰客/太贵", "m": "😤", "p": "RIP-off", "c": "Fifty dollars for a t-shirt? What a rip-off!"}], "fill": [{"s": "Can I ___ on these jeans in a size 8?", "b": "try", "o": ["put", "try", "take", "get"], "x": 1, "h": "试穿 👗", "en": "我能试穿8码的牛仔裤吗？"}, {"s": "Keep the ___ in case you need to return it.", "b": "receipt", "o": ["money", "receipt", "bag", "card"], "x": 1, "h": "收据/小票 🧾", "en": "留好小票以防需要退货。"}, {"s": "Fifty dollars for a plain t-shirt? What a ___!", "b": "rip-off", "o": ["bargain", "rip-off", "sale", "deal"], "x": 1, "h": "太贵了/宰客 😤", "en": "一件普通T恤50美元？太坑了！"}], "convo": {"p": {"id": "At a clothing store.\n\nAmy: Oh this jacket is cute! How much is it?\nRachel: Check the tag. It says eighty dollars. Ouch.\nAmy: Wait, there is a clearance sticker. Fifty percent off!\nRachel: Nice, so it is only forty bucks! That is a steal.\nAmy: Right? I am definitely getting this. What about you?\nRachel: These sneakers are on sale too, but I am not sure about the color.\nAmy: Just try them on! You can always return them if you change your mind.\nRachel: True. Do they accept returns here?\nAmy: Yeah, within thirty days with the receipt.\nRachel: Alright, sold! Let us go pay before I talk myself out of it.", "zh": "在服装店。\n\nAmy：这件夹克好好看！多少钱？\nRachel：看标签。80美元。好贵。\nAmy：等等，有清仓标签。五折！\nRachel：不错，那就只要40块！太划算了。\nAmy：对吧？我肯定要买。你呢？\nRachel：这双运动鞋也打折，但我不确定这个颜色。\nAmy：试试呗！不喜欢随时可以退。\nRachel：也是。这里能退货吗？\nAmy：可以，30天内带小票就行。\nRachel：好，买了！赶紧去付钱，免得我反悔。"}, "v": [["tag", "标签"], ["Ouch", "好贵（感叹）"], ["That is a steal", "太划算了"], ["change your mind", "改变主意"], ["within thirty days", "30天内"], ["talk myself out of it", "说服自己不买"]], "qs": [{"a": "Fifty percent off! So it is only forty bucks. That is a steal.", "q": "That is a steal是什么意思？", "o": ["这是偷来的", "太划算了", "太贵了", "质量不好"], "x": 1, "ch": [{"w": "them", "av": "a1", "n": "Rachel", "t": "Nice, so it is only forty bucks! That is a steal.", "tr": "不错，那就40块！太划算了。"}]}, {"a": "You can always return them if you change your mind.", "q": "change your mind是什么意思？", "o": ["忘记了", "改变主意", "很开心", "不喜欢"], "x": 1, "ch": [{"w": "you", "av": "a2", "n": "Amy", "t": "You can always return them if you change your mind.", "tr": "不喜欢随时可以退。"}]}, {"a": "Let us go pay before I talk myself out of it.", "q": "talk myself out of it是什么意思？", "o": ["说服别人买", "说服自己不买", "去结账", "再逛逛"], "x": 1, "ch": [{"w": "them", "av": "a1", "n": "Rachel", "t": "Let us go pay before I talk myself out of it.", "tr": "赶紧去付钱，免得我反悔。"}]}]}}];
+// ===== STATE =====
+var lesIdx=-1,mode='',cur=0,sel=-1,hearts=3,score=0,xp=0,done=false,animT=null,fcIdx=0,fcFlip=false,voices=[];
+function $(id){return document.getElementById(id)}
+// ===== TTS =====
+function initTTS(){if(!('speechSynthesis' in window))return;try{var s=speechSynthesis;var d=new SpeechSynthesisUtterance('');d.volume=0;s.speak(d);function lv(){voices=s.getVoices()}lv();s.onvoiceschanged=lv;setTimeout(lv,800)}catch(e){}}
+function findV(){if(!voices.length)try{voices=speechSynthesis.getVoices()}catch(e){}return voices.find(function(v){return v.lang&&v.lang.indexOf('en')===0})||voices.find(function(v){return v.lang&&v.lang.indexOf('en-US')===0})||null}
+function speak(t,r){if(!('speechSynthesis' in window))return;try{var s=speechSynthesis;s.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=r||0.85;var v=findV();if(v)u.voice=v;s.speak(u)}catch(e){}}
+// ===== NAV =====
+$('startBtn').onclick=function(){$('splash').classList.add('hide');showHome();initTTS()};
+$('backBtn').onclick=function(){
+  if($('qzScreen').classList.contains('act')||$('resScreen').classList.contains('act')){showModes();return}
+  if(!$('modeScreen').classList.contains('hide')){showHome();return}
+  showHome();
+};
+function showHome(){
+  lesIdx=-1;mode='';
+  $('qzScreen').classList.remove('act');$('qzScreen').innerHTML='';
+  $('resScreen').classList.remove('act');$('resScreen').innerHTML='';
+  $('modeScreen').classList.add('hide');
+  $('btm').classList.add('hide');
+  $('progW').classList.add('hide');$('heartsEl').classList.add('hide');
+  $('backBtn').classList.add('hide');
+  $('tbTitle').textContent='首页';
+  $('topbar').classList.remove('hide');
+  // Build home
+  var h='<div class="hm-hi">欢迎学英语！👋</div><div class="hm-sub">第一批：5节中级课</div>';
+  h+='<div class="xp-bar"><div class="xp-fire">🔥</div><div><div class="xp-n" id="xpN">'+xp+'</div><div class="xp-l">Total XP</div></div><div class="xp-v">Batch 1 of 3</div></div>';
+  h+='<div class="wk-t">📗 Minggu 1-2: Dasar</div><div class="lc">';
+  var colors=["var(--grn)","var(--blu)","var(--teal)","var(--org)","var(--pur)"];
+  var icons=["👋","🏫","👨‍👩‍👧‍👦","🍚","🛒"];
+  L.forEach(function(l,i){
+    h+='<div class="lcard" onclick="pickLesson('+i+')"><div class="ln" style="background:'+colors[i]+'">'+icons[i]+'</div><div class="li"><div class="li-t">'+(i+1)+'. '+l.t+'</div><div class="li-d">'+l.d+'</div></div><div class="larr">›</div></div>';
+  });
+  h+='</div>';
+  $('homeScreen').innerHTML=h;
+  $('homeScreen').classList.remove('hide');
+}
+function pickLesson(i){
+  lesIdx=i;showModes();
+}
+function showModes(){
+  var l=L[lesIdx];
+  $('homeScreen').classList.add('hide');
+  $('qzScreen').classList.remove('act');$('qzScreen').innerHTML='';
+  $('resScreen').classList.remove('act');$('resScreen').innerHTML='';
+  $('btm').classList.add('hide');
+  $('progW').classList.add('hide');$('heartsEl').classList.add('hide');
+  $('backBtn').classList.remove('hide');
+  $('tbTitle').textContent='第'+(lesIdx+1)+'课'+'课';
+  var h='<div class="mp-t">'+(lesIdx+1)+'. '+l.t+'</div><div class="mp-s">'+l.d+' — 选择练习模式</div><div class="modes">';
+  h+='<div class="mcard" onclick="startMode(\'listen\')"><div class="mic mi1">🔊</div><div><div class="mc-t">听力练习</div><div class="mc-d">听录音回答问题</div></div></div>';
+  h+='<div class="mcard" onclick="startMode(\'flash\')"><div class="mic mi2">📖</div><div><div class="mc-t">词汇卡片</div><div class="mc-d">Flashcard '+l.flash.length+' kata dengan contoh</div></div></div>';
+  h+='<div class="mcard" onclick="startMode(\'fill\')"><div class="mic mi3">✏️</div><div><div class="mc-t">填空练习</div><div class="mc-d">选择缺失的词</div></div></div>';
+  h+='<div class="mcard" onclick="startMode(\'convo\')"><div class="mic mi4">💬</div><div><div class="mc-t">日常对话</div><div class="mc-d">休闲英语聊天</div></div></div>';
+  h+='</div>';
+  $('modeScreen').innerHTML=h;
+  $('modeScreen').classList.remove('hide');
+}
+// ===== START MODE =====
+function startMode(m){
+  mode=m;cur=0;sel=-1;hearts=3;score=0;done=false;fcIdx=0;fcFlip=false;
+  $('modeScreen').classList.add('hide');
+  $('hc').textContent='3';
+  $('backBtn').classList.remove('hide');
+  $('tbTitle').textContent=L[lesIdx].t;
+  if(m==='flash'){
+    $('progW').classList.remove('hide');$('heartsEl').classList.add('hide');$('btm').classList.add('hide');
+    showFC();
+  } else {
+    $('progW').classList.remove('hide');$('heartsEl').classList.remove('hide');$('btm').classList.remove('hide');
+    loadQ();
+  }
+}
+// ===== QUIZ =====
+function loadQ(){
+  var l=L[lesIdx],qs;
+  if(mode==='listen')qs=l.listen.qs;
+  else if(mode==='fill')qs=l.fill;
+  else qs=l.convo.qs;
+  if(cur>=qs.length||hearts<=0){showRes();return}
+  sel=-1;done=false;
+  var q=qs[cur];
+  $('prog').style.width=(cur/qs.length*100)+'%';
+  $('btm').className='btm';$('fbRow').classList.remove('vis');
+  $('cbtn').className='btn off';$('cbtn').textContent='检查';
+  var h='';
+  if(mode==='listen'||mode==='convo'){
+    h+='<div class="ql">'+q.q+'</div>';
+    if(mode==='convo'&&q.ch){
+      h+='<div class="chat-area">';
+      q.ch.forEach(function(c){h+='<div class="chat-row '+c.w+'"><div class="chat-av '+c.av+'">'+c.n[0]+'</div><div><div class="chat-bub">'+c.t+'</div><div class="chat-tr">'+c.tr+'</div></div></div>'});
+      h+='</div>';
+    }
+    h+='<div class="ac"><div class="ac-top"><div class="ac-owl">🦉</div><div class="ac-st" id="ast">Tekan untuk dengar</div></div><div class="sb" id="sbox"><span style="color:var(--g300);font-size:13px;font-style:italic">Tekan tombol...</span></div></div>';
+    h+='<div class="pr"><button class="pb" onclick="doPlay(\'n\')"><span class="pi">🔊</span>正常</button><button class="pb" onclick="doPlay(\'s\')"><span class="pi">🐢</span>慢速</button><button class="pb" onclick="doPlay(\'r\')"><span class="pi">🔁</span>重播</button></div>';
+    h+='<div class="opts" id="opts">';
+    q.o.forEach(function(o,i){h+='<button class="op" onclick="pickOp('+i+')"><span class="on-n">'+(i+1)+'</span>'+o+'</button>'});
+    h+='</div>';
+  }
+  if(mode==='fill'){
+    h+='<div class="ql">Isi kata yang hilang</div>';
+    if(q.h)h+='<div class="hint-box">💡 <em>Hint:</em> '+q.h+'</div>';
+    h+='<div class="fill-sent">'+q.s.replace('___','<span class="blank" id="blk">___</span>')+'</div>';
+    h+='<div style="text-align:center;font-size:11px;color:var(--g300);margin-bottom:12px;font-style:italic">'+q.en+'</div>';
+    h+='<div class="wbank">';
+    q.o.forEach(function(o,i){h+='<button class="wb" onclick="pickW('+i+')">'+o+'</button>'});
+    h+='</div>';
+  }
+  $('qzScreen').innerHTML=h;$('qzScreen').classList.add('act');
+  if(mode==='listen'||mode==='convo')setTimeout(function(){doPlay('n')},400);
+}
+function pickOp(i){if(done)return;sel=i;document.querySelectorAll('.op').forEach(function(o,j){o.className='op'+(j===i?' sel':'')});$('cbtn').className='btn go'}
+function pickW(i){
+  if(done)return;sel=i;
+  var l=L[lesIdx],qs=l.fill,q=qs[cur];
+  document.querySelectorAll('.wb').forEach(function(w,j){w.className='wb'+(j===i?' sel-w':'')});
+  var bl=$('blk');if(bl){bl.textContent=q.o[i];bl.classList.add('filled')}
+  $('cbtn').className='btn go';
+}
+function doPlay(m){
+  if(animT){clearInterval(animT);animT=null}
+  var l=L[lesIdx],qs=(mode==='listen'?l.listen.qs:l.convo.qs),q=qs[cur];
+  var spd=m==='s'?480:240,rate=m==='s'?0.55:0.85;
+  speak(q.a,rate);
+  var words=q.a.split(' '),sbox=$('sbox');if(!sbox)return;
+  var h='';words.forEach(function(w,i){h+='<span class="ws" id="w'+i+'">'+w+'</span> '});
+  sbox.innerHTML=h;
+  var ast=$('ast');if(ast)ast.innerHTML='🔊 播放中...';
+  var idx=0;
+  animT=setInterval(function(){
+    if(idx>=words.length){clearInterval(animT);animT=null;if(ast)ast.innerHTML='▶ 点击重播';setTimeout(function(){document.querySelectorAll('.ws').forEach(function(e){e.classList.remove('hl')})},500);return}
+    var el=$('w'+idx);if(el){el.classList.add('v','hl');if(idx>0){var p=$('w'+(idx-1));if(p)p.classList.remove('hl')}}idx++;
+  },spd);
+}
+// ===== CHECK =====
+function checkAns(){
+  if(sel===-1&&!done)return;
+  var l=L[lesIdx],qs;
+  if(mode==='listen')qs=l.listen.qs;
+  else if(mode==='fill')qs=l.fill;
+  else qs=l.convo.qs;
+  if(!done){
+    done=true;var q=qs[cur],isOk=sel===(q.x!==undefined?q.x:q.ans);
+    if(mode==='fill'){
+      var bl=$('blk');if(isOk)bl.classList.add('ok-b');else{bl.classList.add('bad-b');setTimeout(function(){bl.textContent=q.b;bl.className='blank filled ok-b'},800)}
+    } else {
+      var ops=document.querySelectorAll('.op');
+      if(isOk)ops[sel].classList.add('ok');else{ops[sel].classList.add('bad');ops[q.x].classList.add('ok')}
+    }
+    if(isOk){
+      score++;$('btm').className='btm c-ok';$('fbRow').classList.add('vis');
+      $('fbIcon').className='fbi ok';$('fbIcon').textContent='✓';
+      $('fbMsg').className='fbm ok';$('fbMsg').textContent=['很好！','太棒了！','厉害！','酷！','聪明！'][Math.floor(Math.random()*5)];
+      $('fbAns').textContent='';$('cbtn').className='btn n-ok';
+    } else {
+      hearts--;$('hc').textContent=hearts;$('heartsEl').classList.add('pop');setTimeout(function(){$('heartsEl').classList.remove('pop')},300);
+      $('btm').className='btm c-bad';$('fbRow').classList.add('vis');
+      $('fbIcon').className='fbi bad';$('fbIcon').textContent='✗';
+      $('fbMsg').className='fbm bad';$('fbMsg').textContent='正确答案：';
+      $('fbAns').textContent=(mode==='fill'?q.b:q.o[q.x]);$('cbtn').className='btn n-bad';
+    }
+    $('cbtn').textContent='继续';
+  } else {cur++;loadQ()}
+}
+// ===== FLASHCARD =====
+function showFC(){
+  var l=L[lesIdx],ws=l.flash;
+  if(fcIdx>=ws.length){showRes();return}
+  fcFlip=false;$('prog').style.width=(fcIdx/ws.length*100)+'%';
+  var w=ws[fcIdx];
+  var dots='';ws.forEach(function(_,i){dots+='<div class="fc-dot'+(i<fcIdx?' done':'')+(i===fcIdx?' cur':'')+'"></div>'});
+  var h='<div class="ql">Apa artinya?</div>';
+  h+='<div class="fc" onclick="flipFC()"><div class="fc-emoji">'+w.m+'</div><div class="fc-word">'+w.w+'</div><div class="fc-pron">'+w.p+'</div>';
+  if(w.c)h+='<div class="fc-ctx">💬 "'+w.c+'"</div>';
+  h+='<div class="fc-mean" id="fcM">🇨🇳 '+w.e+'</div><div class="fc-tap" id="fcTap">Ketuk untuk lihat arti</div></div>';
+  h+='<div class="fc-nav hide" id="fcNav"><button class="fc-btn fc-hard" onclick="fcNxt(0)">😓 困难</button><button class="fc-btn fc-easy" onclick="fcNxt(1)">😃 简单</button></div>';
+  h+='<div class="fc-dots">'+dots+'</div>';
+  $('qzScreen').innerHTML=h;$('qzScreen').classList.add('act');
+  setTimeout(function(){speak(w.w,0.8)},300);
+}
+function flipFC(){
+  if(fcFlip)return;fcFlip=true;
+  var m=$('fcM');if(m)m.classList.add('show');
+  var t=$('fcTap');if(t)t.textContent='';
+  var n=$('fcNav');if(n)n.classList.remove('hide');
+  var w=L[lesIdx].flash[fcIdx];if(w.c)speak(w.c,0.8);else speak(w.w,0.7);
+}
+function fcNxt(easy){if(easy)score++;fcIdx++;fcFlip=false;showFC()}
+// ===== RESULT =====
+function showRes(){
+  var l=L[lesIdx],total=(mode==='flash'?l.flash.length:(mode==='listen'?l.listen.qs.length:mode==='fill'?l.fill.length:l.convo.qs.length));
+  var earned=score*20;xp+=earned;
+  $('qzScreen').classList.remove('act');$('qzScreen').innerHTML='';
+  $('btm').classList.add('hide');$('prog').style.width='100%';
+  var msg=score===total?'完美！🌟':score>=total*0.6?'很好！💪':'再试一次！🔄';
+  var h='<div class="res-trophy">🏆</div><div class="res-t">Selesai!</div><div class="res-s">'+msg+'</div>';
+  h+='<div class="res-stats"><div class="rs"><div class="rs-v'+(score===total?' gld':'')+'">'+score+'/'+total+'</div><div class="rs-l">Benar</div></div>';
+  if(mode!=='flash')h+='<div class="rs"><div class="rs-v">'+hearts+'</div><div class="rs-l">❤️</div></div>';
+  h+='<div class="rs"><div class="rs-v gld">+'+earned+'</div><div class="rs-l">XP</div></div></div>';
+  // Review
+  var src=(mode==='listen'?l.listen:(mode==='convo'?l.convo:null));
+  if(src&&src.p){h+='<div class="rr"><div class="rr-t">📖 Bacaan</div><div class="rr-box">'+src.p.id+'</div><div class="rr-box zh">'+src.p.zh+'</div></div>'}
+  if(src&&src.v&&src.v.length){h+='<div class="rr"><div class="rr-t">📚 词汇卡片</div><div class="rr-vocab">';src.v.forEach(function(v){h+='<div class="rv-i">'+v[0]+'</div><div class="rv-e">'+v[1]+'</div>'});h+='</div></div>'}
+  h+='<button class="rbtn" onclick="startMode(\''+mode+'\')">Ulangi 🔄</button>';
+  h+='<button class="rbtn2" onclick="showModes()">Mode Lain</button><br>';
+  h+='<button class="rbtn2" onclick="showHome()">🏠 Beranda</button>';
+  $('resScreen').innerHTML=h;$('resScreen').classList.add('act','fadein');
+}
+// Keys
+document.addEventListener('keydown',function(e){if(e.key>='1'&&e.key<='4')pickOp(parseInt(e.key)-1);if(e.key==='Enter')checkAns();if(e.key===' '){e.preventDefault();doPlay('n')}});
+</script></body></html>
