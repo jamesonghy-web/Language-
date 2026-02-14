@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Belajar Bahasa Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grn:#58CC02;--grn-dk:#46a302;--grn-lt:#d7ffb8;
+  --blu:#1CB0F6;--blu-dk:#1899d6;--blu-lt:#e8f4fd;
+  --red:#FF4B4B;--red-lt:#ffdfe0;
+  --org:#FF9600;--gld:#FFC800;--pur:#CE82FF;
+  --navy:#1a3a5c;--teal:#00B4D8;
+  --g100:#F2F2F2;--g200:#E5E5E5;--g300:#AFAFAF;--g500:#777;--g700:#3C3C3C;--w:#FFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--g100);min-height:100vh;min-height:100dvh;color:var(--g700);overflow-x:hidden}
+.hide{display:none!important}
+
+/* SPLASH */
+.splash{position:fixed;inset:0;background:linear-gradient(145deg,#1a3a5c,#0d4f8b 50%,#00B4D8);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--w);text-align:center;padding:32px}
+.sp-flag{font-size:72px;margin-bottom:4px;animation:bob 2s ease-in-out infinite}
+.sp-owl{font-size:48px;margin-bottom:14px}
+.sp-t{font-family:'Baloo 2',cursive;font-size:26px;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.sp-s{font-size:14px;opacity:.85;margin-bottom:28px;line-height:1.6}
+.sp-btn{background:var(--grn);color:var(--w);border:none;border-bottom:4px solid var(--grn-dk);border-radius:16px;padding:16px 48px;font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer}
+.sp-btn:active{border-bottom-width:1px;margin-top:3px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;padding:10px 14px;background:var(--w);border-bottom:2px solid var(--g200);position:sticky;top:0;z-index:100}
+.tb-back{font-size:20px;color:var(--g300);background:none;border:none;cursor:pointer;padding:4px 8px}
+.tb-title{flex:1;text-align:center;font-weight:800;font-size:14px;color:var(--navy)}
+.prog-w{flex:1;height:13px;background:var(--g200);border-radius:10px;margin:0 10px;overflow:hidden}
+.prog-f{height:100%;background:var(--grn);border-radius:10px;transition:width .5s;width:0}
+.hearts{display:flex;align-items:center;gap:3px;font-size:15px}
+.hearts span{font-size:13px;color:var(--red);font-weight:800}
+
+/* HOME */
+.home{max-width:480px;margin:0 auto;padding:20px 16px 40px}
+.hm-head{text-align:center;margin-bottom:20px}
+.hm-hi{font-family:'Baloo 2',cursive;font-size:22px;color:var(--navy)}
+.hm-sub{font-size:13px;color:var(--g500)}
+.streak{background:linear-gradient(135deg,var(--org),var(--gld));border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:22px;color:var(--w)}
+.streak-fire{font-size:32px}
+.streak-n{font-size:22px;font-weight:900}
+.streak-l{font-size:11px;opacity:.9}
+.streak-xp{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,.25);padding:3px 10px;border-radius:10px}
+
+.sec-t{font-family:'Baloo 2',cursive;font-size:17px;color:var(--navy);margin-bottom:10px;padding-left:2px}
+.cards{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.card{display:flex;align-items:center;gap:14px;background:var(--w);border:2px solid var(--g200);border-bottom:4px solid var(--g200);border-radius:16px;padding:14px 16px;cursor:pointer;transition:all .1s;-webkit-user-select:none;user-select:none}
+.card:active{transform:scale(.97);border-bottom-width:2px;margin-top:2px}
+.card-ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.ic1{background:#e0f2ff}.ic2{background:#fff3e0}.ic3{background:#e8f5e9}.ic4{background:#f3e5f5}
+.card-info{flex:1}
+.card-nm{font-weight:800;font-size:15px}.card-ds{font-size:12px;color:var(--g500);margin-top:1px}
+.card-arr{color:var(--g300);font-size:16px;font-weight:700}
+.card-badge{font-size:10px;font-weight:800;color:var(--w);padding:2px 8px;border-radius:8px;margin-left:6px}
+.badge-new{background:var(--grn)}
+.badge-hot{background:var(--org)}
+
+/* QUIZ */
+.qz{max-width:540px;margin:0 auto;padding:18px 16px 156px;display:none;flex-direction:column;align-items:center}
+.qz.active{display:flex}
+.ql{font-size:18px;font-weight:800;margin-bottom:14px;text-align:center;line-height:1.4}
+
+/* Audio card */
+.ac{width:100%;background:var(--w);border:2px solid var(--g200);border-radius:16px;padding:16px;margin-bottom:8px}
+.ac-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ac-owl{width:42px;height:42px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ac-st{font-size:12px;color:var(--g300);font-weight:600}
+.sb{font-size:18px;font-weight:700;color:var(--navy);line-height:1.7;min-height:48px}
+.ws{display:inline-block;opacity:0;transform:translateY(5px);transition:all .28s;margin-right:4px}
+.ws.v{opacity:1;transform:translateY(0)}
+.ws.hl{color:var(--blu);background:var(--blu-lt);border-radius:4px;padding:0 3px}
+
+.pr{display:flex;gap:7px;margin-bottom:14px;width:100%}
+.pb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--w);border:2px solid var(--g200);border-bottom:3px solid var(--g200);border-radius:11px;padding:9px 4px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--g500)}
+.pb:active{transform:scale(.96);border-bottom-width:1px;margin-top:2px}
+.pb .pi{font-size:20px}
+.pb.on{border-color:var(--blu);background:var(--blu-lt);color:var(--blu)}
+
+/* Context hint */
+.hint-box{width:100%;background:#fffde7;border:2px solid #fff9c4;border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#8d6e00;line-height:1.5}
+.hint-box em{font-weight:700;font-style:normal;color:#6d5200}
+
+/* Options */
+.opts{display:flex;flex-direction:column;gap:8px;width:100%}
+.op{display:flex;align-items:center;gap:12px;background:var(--w);border:2px solid var(--g200);border-bottom:4px solid var(--g200);border-radius:14px;padding:12px 14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:var(--g700);text-align:left;transition:all .1s;-webkit-user-select:none;user-select:none}
+.op:active{transform:scale(.97);border-bottom-width:2px;margin-top:2px}
+.on-n{width:26px;height:26px;border:2px solid var(--g200);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--g300);flex-shrink:0}
+.op.sel{border-color:var(--blu);background:var(--blu-lt);border-bottom-color:var(--blu)}
+.op.sel .on-n{border-color:var(--blu);color:var(--blu)}
+.op.ok{border-color:var(--grn);background:var(--grn-lt);border-bottom-color:var(--grn-dk)}
+.op.ok .on-n{border-color:var(--grn-dk);color:var(--grn-dk)}
+.op.bad{border-color:var(--red);background:var(--red-lt);border-bottom-color:var(--red)}
+.op.bad .on-n{border-color:var(--red);color:var(--red)}
+
+/* Fill blank */
+.fill-sent{font-size:17px;font-weight:600;line-height:1.8;text-align:center;margin-bottom:18px;color:var(--g700)}
+.blank{display:inline-block;border-bottom:3px solid var(--blu);min-width:80px;padding:2px 6px;color:var(--blu);font-weight:800;transition:all .3s}
+.blank.filled{background:var(--blu-lt);border-radius:6px}
+.blank.ok-b{border-color:var(--grn);color:var(--grn-dk);background:var(--grn-lt)}
+.blank.bad-b{border-color:var(--red);color:var(--red);background:var(--red-lt)}
+
+/* Word bank */
+.wbank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px}
+.wb{background:var(--w);border:2px solid var(--g200);border-bottom:3px solid var(--g200);border-radius:10px;padding:8px 16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--g700);transition:all .12s}
+.wb:active{transform:scale(.95)}
+.wb.used{opacity:.35;pointer-events:none}
+.wb.sel-w{border-color:var(--blu);background:var(--blu-lt);color:var(--blu)}
+
+/* Flashcard */
+.fc-wrap{width:100%;margin-bottom:20px}
+.fc{width:100%;min-height:200px;background:var(--w);border:2px solid var(--g200);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;cursor:pointer;transition:all .3s;position:relative;-webkit-user-select:none;user-select:none}
+.fc:active{transform:scale(.98)}
+.fc-emoji{font-size:48px;margin-bottom:12px}
+.fc-word{font-family:'Baloo 2',cursive;font-size:28px;color:var(--navy);margin-bottom:4px}
+.fc-pron{font-size:14px;color:var(--g500);margin-bottom:12px;font-style:italic}
+.fc-mean{font-size:18px;color:var(--blu);font-weight:700;opacity:0;transition:opacity .3s}
+.fc-mean.show{opacity:1}
+.fc-tap{font-size:12px;color:var(--g300);position:absolute;bottom:14px}
+.fc-nav{display:flex;gap:12px;width:100%;margin-top:10px}
+.fc-btn{flex:1;padding:12px;border-radius:12px;border:none;border-bottom:3px solid;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;text-transform:uppercase}
+.fc-btn:active{border-bottom-width:1px;margin-top:2px}
+.fc-hard{background:var(--red-lt);color:var(--red);border-bottom-color:var(--red)}
+.fc-easy{background:var(--grn-lt);color:var(--grn-dk);border-bottom-color:var(--grn-dk)}
+.fc-dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.fc-dot{width:8px;height:8px;border-radius:50%;background:var(--g200)}
+.fc-dot.cur{background:var(--blu)}
+.fc-dot.done{background:var(--grn)}
+
+/* Chat bubble style for conversation */
+.chat-area{width:100%;margin-bottom:16px}
+.chat-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-end}
+.chat-row.them{flex-direction:row}
+.chat-row.you{flex-direction:row-reverse}
+.chat-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.chat-avatar.a1{background:var(--navy);color:var(--w)}
+.chat-avatar.a2{background:var(--teal);color:var(--w)}
+.chat-bubble{max-width:75%;padding:10px 14px;border-radius:16px;font-size:14px;font-weight:600;line-height:1.5}
+.them .chat-bubble{background:var(--w);border:2px solid var(--g200);border-bottom-left-radius:4px;color:var(--g700)}
+.you .chat-bubble{background:var(--blu);color:var(--w);border-bottom-right-radius:4px}
+.chat-trans{font-size:11px;color:var(--g300);margin-top:3px;font-style:italic}
+
+/* Bottom */
+.btm{position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom,8px));background:var(--w);border-top:2px solid var(--g200);z-index:100}
+.btm.c-ok{background:var(--grn-lt);border-top-color:var(--grn)}
+.btm.c-bad{background:var(--red-lt);border-top-color:var(--red)}
+.fb{display:none;align-items:center;gap:10px;margin-bottom:8px}
+.fb.vis{display:flex}
+.fbi{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--w);flex-shrink:0}
+.fbi.ok{background:var(--grn)}.fbi.bad{background:var(--red)}
+.fbm{font-weight:800;font-size:15px}
+.fbm.ok{color:var(--grn-dk)}.fbm.bad{color:var(--red)}
+.fba{font-size:12px;font-weight:600;color:var(--red)}
+.btn{width:100%;padding:12px;border-radius:14px;border:none;border-bottom:4px solid;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer}
+.btn:active{border-bottom-width:1px;margin-top:3px}
+.btn.off{background:var(--g200);color:var(--g300);border-bottom-color:#ccc;pointer-events:none}
+.btn.go{background:var(--grn);color:var(--w);border-bottom-color:var(--grn-dk)}
+.btn.n-ok{background:var(--grn);color:var(--w);border-bottom-color:var(--grn-dk)}
+.btn.n-bad{background:var(--red);color:var(--w);border-bottom-color:#cc3b3b}
+
+/* Result */
+.res{max-width:480px;margin:0 auto;padding:36px 16px 40px;display:none;flex-direction:column;align-items:center;text-align:center}
+.res.active{display:flex}
+.res-trophy{font-size:68px;margin-bottom:10px}
+.res-t{font-family:'Baloo 2',cursive;font-size:24px;color:var(--gld);margin-bottom:4px}
+.res-s{font-size:14px;color:var(--g500);font-weight:600;margin-bottom:24px}
+.res-stats{display:flex;gap:18px;margin-bottom:24px}
+.rs{text-align:center}
+.rs-v{font-size:26px;font-weight:900;color:var(--navy)}
+.rs-v.gld{color:var(--gld)}
+.rs-l{font-size:11px;color:var(--g300);font-weight:700;text-transform:uppercase}
+.res-review{width:100%;text-align:left;margin-bottom:20px}
+.rr-t{font-weight:800;font-size:15px;margin-bottom:8px}
+.rr-box{background:var(--w);border:2px solid var(--g200);border-radius:14px;padding:16px;font-size:14px;line-height:1.8;margin-bottom:8px;white-space:pre-line}
+.rr-box.en{background:var(--blu-lt);border-color:#d0ecfc;color:var(--g500);font-style:italic}
+.rr-vocab{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font-size:13px;background:var(--w);border:2px solid var(--g200);border-radius:14px;padding:14px}
+.rv-id{font-weight:700;color:var(--navy)}.rv-en{color:var(--g500)}
+.res-btn{background:var(--blu);color:var(--w);border:none;border-bottom:4px solid var(--blu-dk);border-radius:14px;padding:13px 40px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer;margin-bottom:10px}
+.res-btn:active{border-bottom-width:1px;margin-top:3px}
+.res-home{background:none;border:2px solid var(--g200);color:var(--g500);border-radius:14px;padding:11px 40px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pop{animation:pop .3s}
+.fadein{animation:fadeUp .35s ease}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div class="sp-flag">&#127470;&#127465;</div>
+  <div class="sp-owl">&#129417;</div>
+  <div class="sp-t">Belajar Bahasa Indonesia</div>
+  <div class="sp-s">Pelajaran untuk SD Kelas 3-4<br>Tema: Di Restoran &#127858; At a Restaurant<br><br>4 Pelajaran &#183; Pesan Makanan & Percakapan</div>
+  <button class="sp-btn" id="startBtn">Mulai Belajar &#9654;</button>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar hide" id="topbar">
+  <button class="tb-back" id="backBtn">&#8592;</button>
+  <div class="tb-title" id="tbTitle">Pelajaran 1</div>
+  <div class="prog-w" id="progW"><div class="prog-f" id="prog"></div></div>
+  <div class="hearts" id="heartsEl">&#10084;&#65039;<span id="hc">3</span></div>
+</div>
+
+<!-- HOME -->
+<div class="home hide" id="homeScreen">
+  <div class="hm-head">
+    <div class="hm-hi">Halo! Selamat Belajar &#128075;</div>
+    <div class="hm-sub">Pilih pelajaran di bawah ini</div>
+  </div>
+  <div class="streak">
+    <div class="streak-fire">&#128293;</div>
+    <div><div class="streak-n" id="streakN">0</div><div class="streak-l">hari berturut-turut</div></div>
+    <div class="streak-xp" id="totalXp">0 XP</div>
+  </div>
+
+  <div class="sec-t">&#128218; Pelajaran: Jalan-jalan &#9992;&#65039;</div>
+  <div class="cards">
+    <div class="card" onclick="startLesson(0)">
+      <div class="card-ic ic1">&#128266;</div>
+      <div class="card-info"><div class="card-nm">Mendengarkan &#128264;<span class="card-badge badge-new">BARU</span></div><div class="card-ds">Dengarkan & jawab &#183; Di Restoran</div></div>
+      <div class="card-arr">&#8250;</div>
+    </div>
+    <div class="card" onclick="startLesson(1)">
+      <div class="card-ic ic2">&#128196;</div>
+      <div class="card-info"><div class="card-nm">Kosakata Restoran &#127858;</div><div class="card-ds">Flashcard &#183; 12 kata makanan & minuman</div></div>
+      <div class="card-arr">&#8250;</div>
+    </div>
+    <div class="card" onclick="startLesson(2)">
+      <div class="card-ic ic3">&#9999;&#65039;</div>
+      <div class="card-info"><div class="card-nm">Isi Kalimat &#128221;</div><div class="card-ds">Pilih kata yang benar &#183; Di warung</div></div>
+      <div class="card-arr">&#8250;</div>
+    </div>
+    <div class="card" onclick="startLesson(3)">
+      <div class="card-ic ic4">&#128172;</div>
+      <div class="card-info"><div class="card-nm">Pesan Makanan &#127941;<span class="card-badge badge-hot">POPULER</span></div><div class="card-ds">Ngobrol di warung &#183; Ordering food</div></div>
+      <div class="card-arr">&#8250;</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="qz" id="qzScreen"></div>
+
+<!-- RESULT -->
+<div class="res" id="resScreen"></div>
+
+<!-- BOTTOM -->
+<div class="btm hide" id="btm">
+  <div class="fb" id="fbRow">
+    <div class="fbi" id="fbIcon"></div>
+    <div><div class="fbm" id="fbMsg"></div><div class="fba" id="fbAns"></div></div>
+  </div>
+  <button class="btn off" id="cbtn" onclick="checkAnswer()">Periksa</button>
+</div>
+
+<script>
+// ============ DATA ============
+var LESSONS = [
+  // 0: LISTENING - Di Restoran
+  { title:"Mendengarkan", type:"listen",
+    passage:{id:"Nama saya Rina. Hari ini saya dan keluarga makan di restoran. Restoran ini namanya Warung Sederhana. Tempatnya bersih dan nyaman.\n\nPelayan datang dan memberi kami daftar menu. Ayah memesan nasi goreng spesial. Ibu memesan soto ayam. Saya memesan mie goreng dan es jeruk.\n\nAdik saya, Doni, memesan ayam goreng dan nasi putih. Dia juga minta es teh manis. Doni sangat suka ayam goreng!\n\nMakanan datang setelah lima belas menit. Semuanya terlihat enak sekali! Kami makan bersama dengan senang.\n\nSetelah makan, Ayah minta bon kepada pelayan. Total harganya seratus lima puluh ribu rupiah. Ayah membayar di kasir. Kami bilang terima kasih dan pulang ke rumah.",
+    en:"My name is Rina. Today my family and I eat at a restaurant. The restaurant is called Warung Sederhana. The place is clean and comfortable.\n\nThe waiter came and gave us the menu. Father ordered special fried rice. Mother ordered chicken soup. I ordered fried noodles and orange juice.\n\nMy younger brother, Doni, ordered fried chicken and white rice. He also asked for sweet iced tea. Doni really loves fried chicken!\n\nThe food came after fifteen minutes. Everything looked really delicious! We ate together happily.\n\nAfter eating, Father asked the waiter for the bill. The total was one hundred and fifty thousand rupiah. Father paid at the cashier. We said thank you and went home."},
+    vocab:[["restoran","restaurant"],["warung","small eatery / food stall"],["pelayan","waiter"],["daftar menu","menu"],["memesan","to order"],["nasi goreng","fried rice"],["mie goreng","fried noodles"],["es jeruk","orange juice (iced)"],["es teh manis","sweet iced tea"],["ayam goreng","fried chicken"],["nasi putih","white rice"],["enak","delicious"],["bon","bill"],["membayar","to pay"],["kasir","cashier"]],
+    qs:[
+      {audio:"Hari ini saya dan keluarga makan di restoran. Restoran ini namanya Warung Sederhana.",q:"Nama restoran itu apa?",opts:["Warung Bahagia","Warung Sederhana","Warung Makan Ibu","Restoran Padang"],ans:1},
+      {audio:"Ayah memesan nasi goreng spesial. Ibu memesan soto ayam.",q:"Ibu memesan apa?",opts:["Nasi goreng","Mie goreng","Soto ayam","Ayam goreng"],ans:2},
+      {audio:"Saya memesan mie goreng dan es jeruk.",q:"Rina minum apa?",opts:["Es teh","Es jeruk","Air putih","Susu"],ans:1},
+      {audio:"Doni memesan ayam goreng dan nasi putih. Dia juga minta es teh manis.",q:"Doni makan apa?",opts:["Mie goreng","Nasi goreng","Soto ayam","Ayam goreng dan nasi putih"],ans:3},
+      {audio:"Ayah minta bon kepada pelayan. Total harganya seratus lima puluh ribu rupiah.",q:"Berapa total harganya?",opts:["Rp 100.000","Rp 120.000","Rp 150.000","Rp 200.000"],ans:2}
+    ]
+  },
+  // 1: FLASHCARDS - Makanan & Minuman
+  { title:"Kosakata Restoran", type:"flash",
+    words:[
+      {id:"makan",en:"eat",emoji:"&#127858;",pron:"MA-kan",contoh:"Kami makan di restoran siang ini."},
+      {id:"minum",en:"drink",emoji:"&#129380;",pron:"MI-num",contoh:"Saya minum es jeruk yang segar."},
+      {id:"pesan",en:"order",emoji:"&#128221;",pron:"PE-san",contoh:"Saya mau pesan nasi goreng satu."},
+      {id:"menu",en:"menu",emoji:"&#128196;",pron:"ME-nu",contoh:"Boleh lihat menunya?"},
+      {id:"pelayan",en:"waiter",emoji:"&#128116;",pron:"pe-LA-yan",contoh:"Pelayan membawa makanan ke meja kami."},
+      {id:"enak",en:"delicious",emoji:"&#128523;",pron:"E-nak",contoh:"Wah, soto ayamnya enak banget!"},
+      {id:"pedas",en:"spicy",emoji:"&#127798;",pron:"PE-das",contoh:"Sambalnya pedas sekali!"},
+      {id:"manis",en:"sweet",emoji:"&#127856;",pron:"MA-nis",contoh:"Es teh manisnya segar."},
+      {id:"bon",en:"the bill",emoji:"&#129534;",pron:"BON",contoh:"Minta bon, ya."},
+      {id:"bayar",en:"pay",emoji:"&#128181;",pron:"BA-yar",contoh:"Ayah bayar di kasir."},
+      {id:"kenyang",en:"full (not hungry)",emoji:"&#128524;",pron:"KE-nyang",contoh:"Sudah kenyang, tidak bisa makan lagi!"},
+      {id:"lapar",en:"hungry",emoji:"&#128523;",pron:"LA-par",contoh:"Saya lapar, mau makan sekarang."}
+    ]
+  },
+  // 2: FILL IN BLANK - Di Restoran
+  { title:"Isi Kalimat", type:"fill",
+    qs:[
+      {sent:"Boleh lihat ___ nya?","blank":"menu",opts:["menu","meja","kursi","pintu"],ans:0,hint:"Daftar makanan dan minuman &#128196;",en:"May I see the menu?"},
+      {sent:"Saya mau ___ nasi goreng satu.","blank":"pesan",opts:["bayar","pesan","makan","bawa"],ans:1,hint:"Memberitahu pelayan makanan yang kamu mau &#128221;",en:"I want to order one fried rice."},
+      {sent:"Sambalnya ___ sekali!","blank":"pedas",opts:["manis","asin","pedas","dingin"],ans:2,hint:"Rasanya panas di lidah &#127798;",en:"The sambal is very spicy!"},
+      {sent:"Saya sudah ___, tidak bisa makan lagi.","blank":"kenyang",opts:["lapar","haus","kenyang","capek"],ans:2,hint:"Perut sudah penuh &#128524;",en:"I'm already full, can't eat anymore."},
+      {sent:"Minta ___, ya. Kami mau bayar.","blank":"bon",opts:["air","bon","menu","sendok"],ans:1,hint:"Kertas yang menunjukkan total harga &#129534;",en:"Can we have the bill, please. We want to pay."}
+    ]
+  },
+  // 3: CASUAL CONVERSATION - Ordering at a warung
+  { title:"Percakapan: Pesan Makanan", type:"convo",
+    passage:{id:"Rina dan Doni masuk ke Warung Sederhana. Mereka lapar sekali setelah bermain di taman.\n\nPelayan: \"Selamat siang, Dek! Mau pesan apa?\"\nRina: \"Siang, Kak! Boleh lihat menunya?\"\nPelayan: \"Ini menunya, Dek. Hari ini ada nasi goreng spesial lho!\"\nRina: \"Wah, kedengarannya enak! Saya pesan itu ya, sama es jeruk.\"\nPelayan: \"Siap! Kalau adiknya mau pesan apa?\"\nDoni: \"Aku mau ayam goreng sama nasi putih, Kak. Sama es teh manis.\"\nPelayan: \"Oke. Mau pake sambal?\"\nDoni: \"Jangan pedas-pedas ya, Kak!\"\nPelayan: \"Haha, siap Dek! Ditunggu ya, kira-kira lima belas menit.\"\nRina: \"Oke, makasih, Kak!\"\n\n(Setelah makan)\nRina: \"Kak, minta bonnya ya.\"\nPelayan: \"Ini bonnya, Dek. Totalnya tujuh puluh lima ribu.\"\nRina: \"Bayar pakai QRIS bisa, Kak?\"\nPelayan: \"Bisa banget! QR code-nya di sana ya.\"\nRina: \"Oke, makasih! Makanannya enak banget, Kak!\"\nPelayan: \"Terima kasih, Dek! Datang lagi ya!\"",
+    en:"Rina and Doni enter Warung Sederhana. They're very hungry after playing in the park.\n\nWaiter: \"Good afternoon! What would you like to order?\"\nRina: \"Afternoon! Can I see the menu?\"\nWaiter: \"Here's the menu. Today there's special fried rice!\"\nRina: \"Wow, sounds delicious! I'll order that, and an iced orange juice.\"\nWaiter: \"Sure! And what would your brother like?\"\nDoni: \"I want fried chicken and white rice. And sweet iced tea.\"\nWaiter: \"OK. Want sambal (chili paste)?\"\nDoni: \"Not too spicy please!\"\nWaiter: \"Haha, got it! Please wait, about fifteen minutes.\"\nRina: \"OK, thanks!\"\n\n(After eating)\nRina: \"Excuse me, can we have the bill?\"\nWaiter: \"Here's the bill. The total is seventy-five thousand.\"\nRina: \"Can I pay with QRIS?\"\nWaiter: \"Of course! The QR code is over there.\"\nRina: \"OK, thanks! The food was really delicious!\"\nWaiter: \"Thank you! Come again!\""},
+    vocab:[["selamat siang","good afternoon"],["boleh","may / can I"],["menunya","the menu"],["kedengarannya","it sounds like"],["siap","got it / ready"],["pake","use / with (casual for pakai)"],["sambal","chili paste"],["jangan","don't"],["pedas-pedas","too spicy"],["ditunggu","please wait"],["minta bonnya","ask for the bill"],["totalnya","the total"],["bayar pakai","pay with"],["datang lagi","come again"],["enak banget","really delicious"]],
+    qs:[
+      {audio:"Selamat siang, Dek! Mau pesan apa?",q:"'Mau pesan apa?' artinya?",opts:["Where are you sitting?","What do you want to order?","How many people?","Do you have a reservation?"],ans:1,
+      chat:[{who:"them",av:"a1",name:"Pelayan",text:"Selamat siang, Dek! Mau pesan apa?",tr:"Good afternoon! What would you like to order?"}]},
+      {audio:"Wah, kedengarannya enak! Saya pesan itu ya, sama es jeruk.",q:"Rina pesan minuman apa?",opts:["Es teh","Es kopi","Es jeruk","Air putih"],ans:2,
+      chat:[{who:"you",av:"a2",name:"Rina",text:"Wah, kedengarannya enak!",tr:"Wow, sounds delicious!"},{who:"you",av:"a2",name:"Rina",text:"Saya pesan itu ya, sama es jeruk.",tr:"I'll order that, and an iced orange juice."}]},
+      {audio:"Jangan pedas-pedas ya, Kak!",q:"'Jangan pedas-pedas' artinya?",opts:["Make it extra spicy","No chili please","Not too spicy","I love spicy food"],ans:2,
+      chat:[{who:"them",av:"a1",name:"Pelayan",text:"Mau pake sambal?",tr:"Want sambal (chili paste)?"},{who:"you",av:"a2",name:"Doni",text:"Jangan pedas-pedas ya, Kak!",tr:"Not too spicy please!"}]},
+      {audio:"Kak, minta bonnya ya. Totalnya tujuh puluh lima ribu.",q:"Berapa totalnya?",opts:["Rp 55.000","Rp 65.000","Rp 75.000","Rp 85.000"],ans:2,
+      chat:[{who:"you",av:"a2",name:"Rina",text:"Kak, minta bonnya ya.",tr:"Can we have the bill?"},{who:"them",av:"a1",name:"Pelayan",text:"Totalnya tujuh puluh lima ribu.",tr:"The total is seventy-five thousand."}]},
+      {audio:"Makanannya enak banget, Kak! Datang lagi ya!",q:"'Enak banget' artinya?",opts:["Very expensive","Really delicious","Too salty","Very spicy"],ans:1,
+      chat:[{who:"you",av:"a2",name:"Rina",text:"Makanannya enak banget, Kak!",tr:"The food was really delicious!"},{who:"them",av:"a1",name:"Pelayan",text:"Terima kasih, Dek! Datang lagi ya!",tr:"Thank you! Come again!"}]}
+    ]
+  }
+];
+
+// ============ STATE ============
+var lesson=-1,cur=0,sel=-1,hearts=3,score=0,maxStr=0,curStr=0,done=false,xp=0;
+var animT=null,fcIdx=0,fcFlipped=false;
+var voices=[];
+
+function $(id){return document.getElementById(id)}
+
+// ============ TTS ============
+function initTTS(){
+  if(!('speechSynthesis' in window))return;
+  try{
+    var s=window.speechSynthesis;
+    var d=new SpeechSynthesisUtterance('');d.volume=0;s.speak(d);
+    function lv(){voices=s.getVoices()}
+    lv();s.onvoiceschanged=lv;
+    setTimeout(lv,800);
+  }catch(e){}
+}
+function findV(){
+  if(!voices.length)try{voices=speechSynthesis.getVoices()}catch(e){}
+  return voices.find(function(v){return v.lang&&v.lang.indexOf('id')===0})
+    ||voices.find(function(v){return v.lang&&v.lang.indexOf('ms')===0})
+    ||null;
+}
+function speak(text,rate){
+  if(!('speechSynthesis' in window))return;
+  try{var s=speechSynthesis;s.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='id-ID';u.rate=rate||0.85;u.volume=1;var v=findV();if(v)u.voice=v;s.speak(u)}catch(e){}
+}
+
+// ============ NAV ============
+$('startBtn').onclick=function(){
+  $('splash').classList.add('hide');
+  $('homeScreen').classList.remove('hide');
+  $('topbar').classList.remove('hide');
+  $('topbar').querySelector('.prog-w').classList.add('hide');
+  $('heartsEl').classList.add('hide');
+  $('backBtn').classList.add('hide');
+  $('tbTitle').textContent='Beranda';
+  $('btm').classList.add('hide');
+  initTTS();
+};
+
+$('backBtn').onclick=function(){goHome()};
+
+function goHome(){
+  lesson=-1;
+  $('qzScreen').classList.remove('active');$('qzScreen').innerHTML='';
+  $('resScreen').classList.remove('active');$('resScreen').innerHTML='';
+  $('homeScreen').classList.remove('hide');
+  $('topbar').querySelector('.prog-w').classList.add('hide');
+  $('heartsEl').classList.add('hide');
+  $('backBtn').classList.add('hide');
+  $('tbTitle').textContent='Beranda';
+  $('btm').classList.add('hide');
+  $('totalXp').textContent=xp+' XP';
+}
+
+// ============ START LESSON ============
+function startLesson(idx){
+  lesson=idx;cur=0;sel=-1;hearts=3;score=0;maxStr=0;curStr=0;done=false;
+  var L=LESSONS[idx];
+  $('homeScreen').classList.add('hide');
+  $('resScreen').classList.remove('active');
+  $('tbTitle').textContent=L.title;
+  $('backBtn').classList.remove('hide');
+  $('hc').textContent='3';
+
+  if(L.type==='flash'){
+    fcIdx=0;fcFlipped=false;
+    $('topbar').querySelector('.prog-w').classList.remove('hide');
+    $('heartsEl').classList.add('hide');
+    $('btm').classList.add('hide');
+    showFlash();
+  } else {
+    $('topbar').querySelector('.prog-w').classList.remove('hide');
+    $('heartsEl').classList.remove('hide');
+    $('btm').classList.remove('hide');
+    loadQ();
+  }
+}
+
+// ============ QUIZ Q ============
+function loadQ(){
+  var L=LESSONS[lesson];
+  if(cur>=L.qs.length||hearts<=0){showResult();return}
+  sel=-1;done=false;
+  var q=L.qs[cur];
+  $('prog').style.width=(cur/L.qs.length*100)+'%';
+  $('btm').className='btm';
+  $('fbRow').classList.remove('vis');
+  $('cbtn').className='btn off';$('cbtn').textContent='Periksa';
+
+  var html='';
+
+  // LISTENING & CONVO types
+  if(L.type==='listen'||L.type==='convo'){
+    html+='<div class="ql">'+q.q+'</div>';
+
+    // Chat bubbles for convo
+    if(L.type==='convo'&&q.chat){
+      html+='<div class="chat-area">';
+      q.chat.forEach(function(c){
+        html+='<div class="chat-row '+c.who+'">';
+        html+='<div class="chat-avatar '+c.av+'">'+c.name[0]+'</div>';
+        html+='<div><div class="chat-bubble">'+c.text+'</div><div class="chat-trans">'+c.tr+'</div></div>';
+        html+='</div>';
+      });
+      html+='</div>';
+    }
+
+    // Audio card
+    html+='<div class="ac" id="acard"><div class="ac-top"><div class="ac-owl">&#129417;</div><div class="ac-st" id="ast">Tekan untuk dengar</div></div><div class="sb" id="sbox"><span style="color:var(--g300);font-size:14px;font-style:italic">Kalimat muncul di sini...</span></div></div>';
+    html+='<div class="pr"><button class="pb" onclick="doPlay(\'normal\')"><span class="pi">&#128266;</span>Normal</button><button class="pb" onclick="doPlay(\'slow\')"><span class="pi">&#128034;</span>Pelan</button><button class="pb" onclick="doPlay(\'repeat\')"><span class="pi">&#128257;</span>Ulang</button></div>';
+    // Options
+    html+='<div class="opts" id="opts">';
+    q.opts.forEach(function(o,i){
+      html+='<button class="op" onclick="pickOpt('+i+')"><span class="on-n">'+(i+1)+'</span>'+o+'</button>';
+    });
+    html+='</div>';
+  }
+
+  // FILL type
+  if(L.type==='fill'){
+    html+='<div class="ql">Isi kata yang hilang</div>';
+    if(q.hint) html+='<div class="hint-box">&#128161; <em>Hint:</em> '+q.hint+'</div>';
+    var sentHtml=q.sent.replace('___','<span class="blank" id="blankEl">___</span>');
+    html+='<div class="fill-sent" id="fillSent">'+sentHtml+'</div>';
+    html+='<div class="wbank" id="wbank">';
+    q.opts.forEach(function(o,i){
+      html+='<button class="wb" onclick="pickWord('+i+')">'+o+'</button>';
+    });
+    html+='</div>';
+    html+='<div style="text-align:center;font-size:12px;color:var(--g300);margin-top:6px;font-style:italic">'+q.en+'</div>';
+  }
+
+  $('qzScreen').innerHTML=html;
+  $('qzScreen').classList.add('active');
+
+  // Auto-play for listen/convo
+  if(L.type==='listen'||L.type==='convo'){
+    setTimeout(function(){doPlay('normal')},400);
+  }
+}
+
+// Pick option (listen/convo)
+function pickOpt(i){
+  if(done)return;sel=i;
+  var ops=document.querySelectorAll('.op');
+  ops.forEach(function(o,j){o.className='op'+(j===i?' sel':'')});
+  $('cbtn').className='btn go';
+}
+
+// Pick word (fill)
+function pickWord(i){
+  if(done)return;
+  sel=i;
+  var wbs=document.querySelectorAll('.wb');
+  wbs.forEach(function(w,j){w.className='wb'+(j===i?' sel-w':'')});
+  var L=LESSONS[lesson];var q=L.qs[cur];
+  var bl=$('blankEl');
+  if(bl){bl.textContent=q.opts[i];bl.classList.add('filled')}
+  $('cbtn').className='btn go';
+}
+
+// Play audio
+function doPlay(mode){
+  if(animT){clearInterval(animT);animT=null}
+  var L=LESSONS[lesson];var q=L.qs[cur];
+  var speed=mode==='slow'?480:240;
+  var rate=mode==='slow'?0.55:0.85;
+  speak(q.audio,rate);
+  var words=q.audio.split(' ');
+  var sbox=document.getElementById('sbox');
+  if(!sbox)return;
+  var h='';words.forEach(function(w,i){h+='<span class="ws" id="w'+i+'">'+w+'</span> '});
+  sbox.innerHTML=h;
+  var ast=document.getElementById('ast');
+  if(ast)ast.innerHTML='&#128266; Sedang diputar...';
+  var idx=0;
+  animT=setInterval(function(){
+    if(idx>=words.length){clearInterval(animT);animT=null;if(ast)ast.innerHTML='&#9654; Ketuk untuk ulang';setTimeout(function(){document.querySelectorAll('.ws').forEach(function(e){e.classList.remove('hl')})},500);return}
+    var el=document.getElementById('w'+idx);
+    if(el){el.classList.add('v','hl');if(idx>0){var p=document.getElementById('w'+(idx-1));if(p)p.classList.remove('hl')}}
+    idx++;
+  },speed);
+}
+
+// ============ CHECK ============
+function checkAnswer(){
+  if(sel===-1&&!done)return;
+  var L=LESSONS[lesson];
+  if(!done){
+    done=true;
+    var q=L.qs[cur];
+    var isOk=sel===q.ans;
+
+    if(L.type==='fill'){
+      var bl=$('blankEl');
+      if(isOk){bl.classList.add('ok-b')}else{bl.classList.add('bad-b');setTimeout(function(){bl.textContent=q.blank;bl.className='blank filled ok-b'},800)}
+    } else {
+      var ops=document.querySelectorAll('.op');
+      if(isOk){ops[sel].classList.add('ok')}else{ops[sel].classList.add('bad');ops[q.ans].classList.add('ok')}
+    }
+
+    if(isOk){
+      score++;curStr++;if(curStr>maxStr)maxStr=curStr;
+      $('btm').className='btm c-ok';
+      $('fbRow').classList.add('vis');
+      $('fbIcon').className='fbi ok';$('fbIcon').textContent='\u2713';
+      $('fbMsg').className='fbm ok';$('fbMsg').textContent=['Bagus!','Hebat!','Mantap!','Keren!','Pintar!'][Math.floor(Math.random()*5)];
+      $('fbAns').textContent='';
+      $('cbtn').className='btn n-ok';
+    } else {
+      hearts--;curStr=0;$('hc').textContent=hearts;
+      $('heartsEl').classList.add('pop');setTimeout(function(){$('heartsEl').classList.remove('pop')},300);
+      $('btm').className='btm c-bad';
+      $('fbRow').classList.add('vis');
+      $('fbIcon').className='fbi bad';$('fbIcon').textContent='\u2717';
+      $('fbMsg').className='fbm bad';$('fbMsg').textContent='Jawaban yang benar:';
+      if(L.type==='fill') $('fbAns').textContent=q.blank;
+      else $('fbAns').textContent=q.opts[q.ans];
+      $('cbtn').className='btn n-bad';
+    }
+    $('cbtn').textContent='Lanjut';
+  } else {
+    cur++;loadQ();
+  }
+}
+
+// ============ FLASHCARDS ============
+function showFlash(){
+  var L=LESSONS[lesson];
+  if(fcIdx>=L.words.length){showResult();return}
+  fcFlipped=false;
+  $('prog').style.width=(fcIdx/L.words.length*100)+'%';
+  var w=L.words[fcIdx];
+  var dots='';L.words.forEach(function(_,i){dots+='<div class="fc-dot'+(i<fcIdx?' done':'')+(i===fcIdx?' cur':'')+'"></div>'});
+
+  var html='<div class="ql" style="margin-top:10px">Apa artinya? (What does it mean?)</div>';
+  html+='<div class="fc-wrap"><div class="fc" onclick="flipCard()"><div class="fc-emoji">'+w.emoji+'</div><div class="fc-word">'+w.id+'</div><div class="fc-pron">'+w.pron+'</div>';
+  if(w.contoh) html+='<div style="font-size:13px;color:var(--g500);margin:6px 0 8px;line-height:1.5;font-weight:600">&#128172; <em>\"'+w.contoh+'\"</em></div>';
+  html+='<div class="fc-mean" id="fcMean">&#127468;&#127463; '+w.en+'</div><div class="fc-tap" id="fcTap">Ketuk untuk lihat arti Inggris</div></div>';
+  html+='<div class="fc-nav hide" id="fcNav"><button class="fc-btn fc-hard" onclick="fcNext(false)">&#128549; Sulit</button><button class="fc-btn fc-easy" onclick="fcNext(true)">&#128515; Mudah</button></div>';
+  html+='<div class="fc-dots">'+dots+'</div></div>';
+
+  $('qzScreen').innerHTML=html;$('qzScreen').classList.add('active');
+  // Speak word
+  setTimeout(function(){speak(w.id,0.8)},300);
+}
+
+function flipCard(){
+  if(fcFlipped)return;fcFlipped=true;
+  var m=document.getElementById('fcMean');if(m)m.classList.add('show');
+  var t=document.getElementById('fcTap');if(t)t.textContent='';
+  var n=document.getElementById('fcNav');if(n)n.classList.remove('hide');
+  // Speak the example sentence
+  var L=LESSONS[lesson];var w=L.words[fcIdx];
+  if(w.contoh) speak(w.contoh,0.8);
+  else speak(w.id,0.7);
+}
+
+function fcNext(easy){
+  if(easy)score++;
+  fcIdx++;fcFlipped=false;showFlash();
+}
+
+// ============ RESULT ============
+function showResult(){
+  var L=LESSONS[lesson];
+  var total=L.type==='flash'?L.words.length:L.qs.length;
+  var earned=score*20;xp+=earned;
+
+  $('qzScreen').classList.remove('active');$('qzScreen').innerHTML='';
+  $('btm').classList.add('hide');$('prog').style.width='100%';
+
+  var html='<div class="res-trophy">&#127942;</div>';
+  html+='<div class="res-t">Pelajaran Selesai!</div>';
+  var msg=score===total?'Sempurna! Kamu hebat! &#127775;':score>=total*0.6?'Bagus sekali! &#128170;':'Jangan menyerah! &#128260;';
+  html+='<div class="res-s">'+msg+'</div>';
+  html+='<div class="res-stats"><div class="rs"><div class="rs-v'+(score===total?' gld':'')+'">'+score+'/'+total+'</div><div class="rs-l">Benar</div></div>';
+  if(L.type!=='flash') html+='<div class="rs"><div class="rs-v">'+hearts+'</div><div class="rs-l">Sisa &#10084;</div></div>';
+  html+='<div class="rs"><div class="rs-v" style="color:var(--gld)">+'+earned+'</div><div class="rs-l">XP</div></div></div>';
+
+  // Review content
+  if(L.passage){
+    html+='<div class="res-review"><div class="rr-t">&#128214; Bacaan Lengkap</div><div class="rr-box">'+L.passage.id+'</div><div class="rr-box en">'+L.passage.en+'</div></div>';
+  }
+  if(L.vocab&&L.vocab.length){
+    html+='<div class="res-review"><div class="rr-t">&#128218; Kosakata</div><div class="rr-vocab">';
+    L.vocab.forEach(function(v){html+='<div class="rv-id">'+v[0]+'</div><div class="rv-en">'+v[1]+'</div>'});
+    html+='</div></div>';
+  }
+
+  html+='<button class="res-btn" onclick="startLesson('+lesson+')">Ulangi &#128260;</button>';
+  html+='<button class="res-home" onclick="goHome()">&#127968; Beranda</button>';
+
+  $('resScreen').innerHTML=html;$('resScreen').classList.add('active','fadein');
+}
+
+// ============ KEYBOARD ============
+document.addEventListener('keydown',function(e){
+  if(!$('splash').classList.contains('hide'))return;
+  if(lesson<0)return;
+  if(e.key>='1'&&e.key<='4')pickOpt(parseInt(e.key)-1);
+  if(e.key==='Enter')checkAnswer();
+  if(e.key===' '){e.preventDefault();doPlay('normal')}
+});
+</script>
+</body>
+</html>
